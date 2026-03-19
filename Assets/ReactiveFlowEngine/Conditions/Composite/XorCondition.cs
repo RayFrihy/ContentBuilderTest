@@ -4,15 +4,15 @@ using System.Linq;
 using R3;
 using ReactiveFlowEngine.Abstractions;
 
-namespace ReactiveFlowEngine.Conditions
+namespace ReactiveFlowEngine.Conditions.Composite
 {
-    public class CompositeAndCondition : ICompositeCondition
+    public sealed class XorCondition : ICompositeCondition
     {
         private readonly ICondition[] _children;
 
         public IReadOnlyList<ICondition> Children => _children;
 
-        public CompositeAndCondition(params ICondition[] children)
+        public XorCondition(params ICondition[] children)
         {
             _children = children ?? Array.Empty<ICondition>();
         }
@@ -20,11 +20,20 @@ namespace ReactiveFlowEngine.Conditions
         public Observable<bool> Evaluate()
         {
             if (_children.Length == 0)
-                return Observable.Return(true);
+                return Observable.Return(false);
 
             return Observable.CombineLatest(
                 _children.Select(c => c.Evaluate()).ToArray()
-            ).Select(values => values.All(v => v));
+            ).Select(values =>
+            {
+                int trueCount = 0;
+                for (int i = 0; i < values.Count; i++)
+                {
+                    if (values[i])
+                        trueCount++;
+                }
+                return trueCount == 1;
+            });
         }
 
         public void Reset()
