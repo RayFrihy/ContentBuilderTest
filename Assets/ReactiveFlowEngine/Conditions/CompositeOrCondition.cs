@@ -1,13 +1,16 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using R3;
 using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions
 {
-    public class CompositeOrCondition : ICondition
+    public class CompositeOrCondition : ICompositeCondition
     {
         private readonly ICondition[] _children;
+
+        public IReadOnlyList<ICondition> Children => _children;
 
         public CompositeOrCondition(params ICondition[] children)
         {

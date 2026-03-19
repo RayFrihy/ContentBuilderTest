@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using R3;
 using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions
 {
-    public class CompositeNotCondition : ICondition
+    public class CompositeNotCondition : ICompositeCondition
     {
         private readonly ICondition _inner;
+
+        public IReadOnlyList<ICondition> Children => new[] { _inner };
 
         public CompositeNotCondition(ICondition inner)
         {
