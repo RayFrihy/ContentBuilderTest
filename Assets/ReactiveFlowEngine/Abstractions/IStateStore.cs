@@ -14,5 +14,13 @@ namespace ReactiveFlowEngine.Abstractions
         void PushHistory(string stepId);
         string PopHistory();
         void Clear();
+
+        // Global state management
+        void SetGlobalState(string key, object value);
+        object GetGlobalState(string key);
+        bool HasGlobalState(string key);
+        void RemoveGlobalState(string key);
+        Dictionary<string, object> GetAllGlobalState();
+        void SetAllGlobalState(Dictionary<string, object> state);
     }
 }

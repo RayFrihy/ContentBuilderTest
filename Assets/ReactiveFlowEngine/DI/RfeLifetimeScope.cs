@@ -23,7 +23,8 @@ namespace ReactiveFlowEngine.DI
             builder.Register<ChapterRunner>(Lifetime.Singleton);
 
             // State
-            builder.Register<StateStore>(Lifetime.Singleton).As<IStateStore>();
+            builder.Register<StateStore>(Lifetime.Singleton).As<IStateStore>().AsSelf();
+            builder.Register<EventBus>(Lifetime.Singleton).As<IEventBus>();
             builder.Register<HistoryStack>(Lifetime.Singleton);
 
             // Serialization

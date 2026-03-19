@@ -65,5 +65,62 @@ namespace ReactiveFlowEngine.Model
             }
             return 0;
         }
+
+        public Vector3 GetVector3(string key)
+        {
+            if (Parameters.TryGetValue(key, out var value))
+            {
+                if (value is Vector3 v) return v;
+                if (value is Dictionary<string, object> dict)
+                {
+                    return new Vector3(
+                        dict.ContainsKey("x") ? Convert.ToSingle(dict["x"]) : 0f,
+                        dict.ContainsKey("y") ? Convert.ToSingle(dict["y"]) : 0f,
+                        dict.ContainsKey("z") ? Convert.ToSingle(dict["z"]) : 0f);
+                }
+            }
+            return Vector3.zero;
+        }
+
+        public Quaternion GetQuaternion(string key)
+        {
+            if (Parameters.TryGetValue(key, out var value))
+            {
+                if (value is Quaternion q) return q;
+                if (value is Dictionary<string, object> dict)
+                {
+                    return new Quaternion(
+                        dict.ContainsKey("x") ? Convert.ToSingle(dict["x"]) : 0f,
+                        dict.ContainsKey("y") ? Convert.ToSingle(dict["y"]) : 0f,
+                        dict.ContainsKey("z") ? Convert.ToSingle(dict["z"]) : 0f,
+                        dict.ContainsKey("w") ? Convert.ToSingle(dict["w"]) : 1f);
+                }
+            }
+            return Quaternion.identity;
+        }
+
+        public Color GetColor(string key)
+        {
+            if (Parameters.TryGetValue(key, out var value))
+            {
+                if (value is Color c) return c;
+                if (value is string hex && ColorUtility.TryParseHtmlString(hex, out var parsed))
+                    return parsed;
+            }
+            return Color.white;
+        }
+
+        public List<BehaviorDefinition> GetBehaviorDefinitionList(string key)
+        {
+            if (Parameters.TryGetValue(key, out var value))
+                return value as List<BehaviorDefinition>;
+            return new List<BehaviorDefinition>();
+        }
+
+        public object GetObject(string key)
+        {
+            Parameters.TryGetValue(key, out var value);
+            return value;
+        }
     }
 }

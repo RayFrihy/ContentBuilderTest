@@ -146,6 +146,45 @@ namespace ReactiveFlowEngine.State
             }
         }
 
+        public bool HasGlobalState(string key)
+        {
+            if (key == null) return false;
+            lock (_lockObject)
+            {
+                return _globalState.ContainsKey(key);
+            }
+        }
+
+        public void RemoveGlobalState(string key)
+        {
+            if (key == null) return;
+            lock (_lockObject)
+            {
+                _globalState.Remove(key);
+            }
+        }
+
+        public Dictionary<string, object> GetAllGlobalState()
+        {
+            lock (_lockObject)
+            {
+                return new Dictionary<string, object>(_globalState);
+            }
+        }
+
+        public void SetAllGlobalState(Dictionary<string, object> state)
+        {
+            lock (_lockObject)
+            {
+                _globalState.Clear();
+                if (state != null)
+                {
+                    foreach (var kvp in state)
+                        _globalState[kvp.Key] = kvp.Value;
+                }
+            }
+        }
+
         private List<BehaviorSnapshot> CaptureBehaviorStates(IStep step)
         {
             var behaviorStates = new List<BehaviorSnapshot>();
