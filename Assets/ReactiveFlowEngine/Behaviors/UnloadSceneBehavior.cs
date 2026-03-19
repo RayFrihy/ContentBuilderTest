@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 namespace ReactiveFlowEngine.Behaviors
 {
-    public class UnloadSceneBehavior : IBehavior, IStateCaptureBehavior
+    public class UnloadSceneBehavior : IReversibleBehavior, IStateCaptureBehavior
     {
         private readonly string _sceneName;
         private readonly bool _isBlocking;
@@ -32,6 +32,17 @@ namespace ReactiveFlowEngine.Behaviors
         public async UniTask ExecuteAsync(CancellationToken ct)
         {
             var op = SceneManager.UnloadSceneAsync(_sceneName);
+
+            while (!op.isDone)
+            {
+                ct.ThrowIfCancellationRequested();
+                await UniTask.Yield(ct);
+            }
+        }
+
+        public async UniTask UndoAsync(CancellationToken ct)
+        {
+            var op = SceneManager.LoadSceneAsync(_sceneName, LoadSceneMode.Additive);
 
             while (!op.isDone)
             {

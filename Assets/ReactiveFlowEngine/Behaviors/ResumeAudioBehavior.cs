@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ReactiveFlowEngine.Behaviors
 {
-    public class ResumeAudioBehavior : IReversibleBehavior
+    public class ResumeAudioBehavior : IReversibleBehavior, IStateCaptureBehavior
     {
         private readonly ISceneObjectResolver _resolver;
         private readonly string _audioSourceGuid;
@@ -62,6 +62,16 @@ namespace ReactiveFlowEngine.Behaviors
             }
 
             await UniTask.CompletedTask;
+        }
+
+        public Dictionary<string, object> CaptureState()
+        {
+            return new Dictionary<string, object>
+            {
+                ["AudioSourceGuid"] = _audioSourceGuid,
+                ["WasPaused"] = _wasPaused,
+                ["HasOriginalState"] = _hasOriginalState
+            };
         }
     }
 }
