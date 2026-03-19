@@ -1,0 +1,21 @@
+{
+    "name": "ReactiveFlowEngine",
+    "rootNamespace": "ReactiveFlowEngine",
+    "references": [
+        "R3.Unity",
+        "UniTask",
+        "VContainer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll",
+        "R3.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

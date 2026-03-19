@@ -1,0 +1,1424 @@
+{
+  "$id": "1",
+  "$type": "Serializer_ProcessWrapper, ",
+  "SubChapters": {
+    "$id": "2",
+    "$type": "ChapterList, ",
+    "$values": [
+      {
+        "$id": "3",
+        "$type": "Chapter, ",
+        "ChapterMetadata": {
+          "$id": "4",
+          "$type": "ChapterMetadata, ",
+          "LastSelectedStep": null,
+          "EntryNodePosition": {
+            "x": 0.0,
+            "y": 0.0
+          },
+          "Guid": "f4767c09-40e4-4fc6-873c-a81cdca7d34c",
+          "ViewTransform": {
+            "$id": "5",
+            "$type": "ViewTransform, ",
+            "Position": {
+              "x": 400.0,
+              "y": 458.666656,
+              "z": 0.0
+            },
+            "Scale": {
+              "x": 1.0,
+              "y": 1.0,
+              "z": 1.0
+            }
+          }
+        },
+        "Data": {
+          "$id": "6",
+          "$type": "ChapterData, ",
+          "Name": "Step Group",
+          "FirstStep": {
+            "$id": "7",
+            "$type": "StepRef, ",
+            "LifeCycle": null,
+            "StepMetadata": {
+              "$id": "8",
+              "$type": "StepMetadata, ",
+              "Position": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "StepType": null,
+              "Guid": "b6f8a7bd-d089-4248-9e86-b538a97a65f1"
+            },
+            "Parent": null
+          },
+          "Steps": {
+            "$id": "9",
+            "$type": "StepList, ",
+            "$values": [
+              {
+                "$ref": "7"
+              },
+              {
+                "$id": "10",
+                "$type": "StepRef, ",
+                "LifeCycle": null,
+                "StepMetadata": {
+                  "$id": "11",
+                  "$type": "StepMetadata, ",
+                  "Position": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "StepType": null,
+                  "Guid": "cac2ca3d-1c63-4ed3-8ede-ba08d2d5bea1"
+                },
+                "Parent": null
+              },
+              {
+                "$id": "12",
+                "$type": "StepRef, ",
+                "LifeCycle": null,
+                "StepMetadata": {
+                  "$id": "13",
+                  "$type": "StepMetadata, ",
+                  "Position": {
+                    "x": 0.0,
+                    "y": 0.0
+                  },
+                  "StepType": null,
+                  "Guid": "343f52af-ffb0-4623-b1e6-bda29245e087"
+                },
+                "Parent": null
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "Steps": {
+    "$id": "14",
+    "$type": "StepList, ",
+    "$values": [
+      {
+        "$id": "15",
+        "$type": "Step, ",
+        "StepMetadata": {
+          "$id": "16",
+          "$type": "StepMetadata, ",
+          "Position": {
+            "x": 130.0,
+            "y": 0.0
+          },
+          "StepType": "default",
+          "Guid": "a998c040-a3e2-4e6b-abbf-6e592ecf4cf1"
+        },
+        "Data": {
+          "$id": "17",
+          "$type": "StepData, ",
+          "Name": "Step 1",
+          "Description": null,
+          "Behaviors": {
+            "$id": "18",
+            "$type": "BehaviorCollection, ",
+            "Data": {
+              "$id": "19",
+              "$type": "BehaviorCollectionData, ",
+              "Behaviors": {
+                "$id": "20",
+                "$type": "BehaviorList, ",
+                "$values": [
+                  {
+                    "$id": "21",
+                    "$type": "MoveObjectBehavior, ",
+                    "Data": {
+                      "$id": "22",
+                      "$type": "MoveObjectBehaviorData, ",
+                      "ExecutionStages": 1,
+                      "TargetObject": {
+                        "$id": "23",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "24",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "db2c9e6d-7d4a-463f-9991-46f4a33958db"
+                          ]
+                        }
+                      },
+                      "FinalPosition": {
+                        "$id": "25",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "26",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "4a67ccfd-08e5-4b08-a107-888a1015c88c"
+                          ]
+                        }
+                      },
+                      "Duration": 4.0,
+                      "AnimationCurve": {
+                        "Keys": [
+                          {
+                            "Time": 0.0,
+                            "Value": 0.0,
+                            "InTangent": 0.0,
+                            "OutTangent": 1.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          },
+                          {
+                            "Time": 1.0,
+                            "Value": 1.0,
+                            "InTangent": 1.0,
+                            "OutTangent": 0.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          }
+                        ],
+                        "PreWrapMode": 8,
+                        "PostWrapMode": 8
+                      },
+                      "Metadata": null,
+                      "IsBlocking": true
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Transitions": {
+            "$id": "27",
+            "$type": "TransitionCollection, ",
+            "Data": {
+              "$id": "28",
+              "$type": "TransitionCollectionData, ",
+              "Transitions": {
+                "$id": "29",
+                "$type": "TransitionList, ",
+                "$values": [
+                  {
+                    "$id": "30",
+                    "$type": "Transition, ",
+                    "Data": {
+                      "$id": "31",
+                      "$type": "TransitionData, ",
+                      "Conditions": {
+                        "$id": "32",
+                        "$type": "ConditionList, ",
+                        "$values": []
+                      },
+                      "TargetStep": {
+                        "$id": "33",
+                        "$type": "StepRef, ",
+                        "LifeCycle": null,
+                        "StepMetadata": {
+                          "$id": "34",
+                          "$type": "StepMetadata, ",
+                          "Position": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "StepType": null,
+                          "Guid": "4b14a03e-85d8-45b4-b1fe-b8ce303e2e71"
+                        },
+                        "Parent": null
+                      },
+                      "Mode": null,
+                      "IsCompleted": false,
+                      "Metadata": {
+                        "$id": "35",
+                        "$type": "Metadata, ",
+                        "values": {
+                          "$id": "36",
+                          "$type": "MetadataValuesDictionary, ",
+                          "Conditions": {
+                            "$id": "37",
+                            "$type": "ConditionDictionary, ",
+                            "VRBuilder.Core.Attributes.FoldableAttribute": true,
+                            "VRBuilder.Core.Attributes.ReorderableListOfAttribute": {
+                              "$id": "38",
+                              "$type": "ListOfAttributeData, ",
+                              "ChildAttributes": {
+                                "$id": "39",
+                                "$type": "ChildAttributes, ",
+                                "$values": [
+                                  {
+                                    "$id": "40",
+                                    "$type": "FoldableAttribute, ",
+                                    "Name": "VRBuilder.Core.Attributes.FoldableAttribute",
+                                    "TypeId": "VRBuilder.Core.Attributes.FoldableAttribute, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                  },
+                                  {
+                                    "$id": "41",
+                                    "$type": "HelpAttribute, ",
+                                    "Name": "VRBuilder.Core.Attributes.HelpAttribute",
+                                    "TypeId": "VRBuilder.Core.Attributes.HelpAttribute, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                  },
+                                  {
+                                    "$id": "42",
+                                    "$type": "MenuAttribute, ",
+                                    "Name": "VRBuilder.Core.Attributes.MenuAttribute",
+                                    "TypeId": "VRBuilder.Core.Attributes.MenuAttribute, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                  }
+                                ]
+                              },
+                              "ChildMetadata": {
+                                "$id": "43",
+                                "$type": "ChildMetadata, ",
+                                "$values": []
+                              }
+                            },
+                            "VRBuilder.Core.Attributes.ExtendableListAttribute": {
+                              "$id": "44",
+                              "$type": "ExtendableListAttribute_Wrapper, ",
+                              "Type": "VRBuilder.Core.Conditions.ICondition, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Mode": null,
+          "ToUnlock": {
+            "$id": "45",
+            "$type": "LockablePropertyRefList, ",
+            "$values": []
+          },
+          "GroupsToUnlock": {
+            "$id": "46",
+            "$type": "GuidDictionary, "
+          },
+          "IsCompleted": false,
+          "Metadata": null
+        }
+      },
+      {
+        "$id": "47",
+        "$type": "Step, ",
+        "StepMetadata": {
+          "$id": "48",
+          "$type": "StepMetadata, ",
+          "Position": {
+            "x": 293.3333,
+            "y": 0.0
+          },
+          "StepType": "default",
+          "Guid": "4b14a03e-85d8-45b4-b1fe-b8ce303e2e71"
+        },
+        "Data": {
+          "$id": "49",
+          "$type": "StepData, ",
+          "Name": "Step 2",
+          "Description": null,
+          "Behaviors": {
+            "$id": "50",
+            "$type": "BehaviorCollection, ",
+            "Data": {
+              "$id": "51",
+              "$type": "BehaviorCollectionData, ",
+              "Behaviors": {
+                "$id": "52",
+                "$type": "BehaviorList, ",
+                "$values": [
+                  {
+                    "$id": "53",
+                    "$type": "MoveObjectBehavior, ",
+                    "Data": {
+                      "$id": "54",
+                      "$type": "MoveObjectBehaviorData, ",
+                      "ExecutionStages": 1,
+                      "TargetObject": {
+                        "$id": "55",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "56",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "db2c9e6d-7d4a-463f-9991-46f4a33958db"
+                          ]
+                        }
+                      },
+                      "FinalPosition": {
+                        "$id": "57",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "58",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "450cb37b-457f-4fdd-bc28-9db0f478144e"
+                          ]
+                        }
+                      },
+                      "Duration": 4.0,
+                      "AnimationCurve": {
+                        "Keys": [
+                          {
+                            "Time": 0.0,
+                            "Value": 0.0,
+                            "InTangent": 0.0,
+                            "OutTangent": 1.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          },
+                          {
+                            "Time": 1.0,
+                            "Value": 1.0,
+                            "InTangent": 1.0,
+                            "OutTangent": 0.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          }
+                        ],
+                        "PreWrapMode": 8,
+                        "PostWrapMode": 8
+                      },
+                      "Metadata": null,
+                      "IsBlocking": true
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Transitions": {
+            "$id": "59",
+            "$type": "TransitionCollection, ",
+            "Data": {
+              "$id": "60",
+              "$type": "TransitionCollectionData, ",
+              "Transitions": {
+                "$id": "61",
+                "$type": "TransitionList, ",
+                "$values": [
+                  {
+                    "$id": "62",
+                    "$type": "Transition, ",
+                    "Data": {
+                      "$id": "63",
+                      "$type": "TransitionData, ",
+                      "Conditions": {
+                        "$id": "64",
+                        "$type": "ConditionList, ",
+                        "$values": [
+                          {
+                            "$id": "65",
+                            "$type": "TimeoutCondition, ",
+                            "Data": {
+                              "$id": "66",
+                              "$type": "TimeoutConditionData, ",
+                              "Timeout": 2.0,
+                              "Metadata": null,
+                              "IsCompleted": false
+                            }
+                          }
+                        ]
+                      },
+                      "TargetStep": {
+                        "$id": "67",
+                        "$type": "StepRef, ",
+                        "LifeCycle": null,
+                        "StepMetadata": {
+                          "$id": "68",
+                          "$type": "StepMetadata, ",
+                          "Position": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "StepType": null,
+                          "Guid": "61be40d1-45cf-4fd0-ba2e-0e12a49961e6"
+                        },
+                        "Parent": null
+                      },
+                      "Mode": null,
+                      "IsCompleted": false,
+                      "Metadata": {
+                        "$id": "69",
+                        "$type": "Metadata, ",
+                        "values": {
+                          "$id": "70",
+                          "$type": "MetadataValuesDictionary, ",
+                          "Conditions": {
+                            "$id": "71",
+                            "$type": "ConditionDictionary, ",
+                            "VRBuilder.Core.Attributes.FoldableAttribute": true,
+                            "VRBuilder.Core.Attributes.ReorderableListOfAttribute": {
+                              "$id": "72",
+                              "$type": "ListOfAttributeData, ",
+                              "ChildAttributes": {
+                                "$id": "73",
+                                "$type": "ChildAttributes, ",
+                                "$values": [
+                                  {
+                                    "$id": "74",
+                                    "$type": "FoldableAttribute, ",
+                                    "Name": "VRBuilder.Core.Attributes.FoldableAttribute",
+                                    "TypeId": "VRBuilder.Core.Attributes.FoldableAttribute, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                  },
+                                  {
+                                    "$id": "75",
+                                    "$type": "HelpAttribute, ",
+                                    "Name": "VRBuilder.Core.Attributes.HelpAttribute",
+                                    "TypeId": "VRBuilder.Core.Attributes.HelpAttribute, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                  },
+                                  {
+                                    "$id": "76",
+                                    "$type": "MenuAttribute, ",
+                                    "Name": "VRBuilder.Core.Attributes.MenuAttribute",
+                                    "TypeId": "VRBuilder.Core.Attributes.MenuAttribute, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                  }
+                                ]
+                              },
+                              "ChildMetadata": {
+                                "$id": "77",
+                                "$type": "ChildMetadata, ",
+                                "$values": [
+                                  {
+                                    "$id": "78",
+                                    "$type": "ConditionDictionary, ",
+                                    "VRBuilder.Core.Attributes.FoldableAttribute": true,
+                                    "VRBuilder.Core.Attributes.HelpAttribute": null,
+                                    "VRBuilder.Core.Attributes.MenuAttribute": null,
+                                    "ReorderableElement": {
+                                      "$id": "79",
+                                      "$type": "ReorderableElementMetadata, ",
+                                      "MoveUp": false,
+                                      "MoveDown": false,
+                                      "IsFirst": true,
+                                      "IsLast": true
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "VRBuilder.Core.Attributes.ExtendableListAttribute": {
+                              "$id": "80",
+                              "$type": "ExtendableListAttribute_Wrapper, ",
+                              "Type": "VRBuilder.Core.Conditions.ICondition, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "$id": "81",
+                    "$type": "Transition, ",
+                    "Data": {
+                      "$id": "82",
+                      "$type": "TransitionData, ",
+                      "Conditions": {
+                        "$id": "83",
+                        "$type": "ConditionList, ",
+                        "$values": [
+                          {
+                            "$id": "84",
+                            "$type": "TimeoutCondition, ",
+                            "Data": {
+                              "$id": "85",
+                              "$type": "TimeoutConditionData, ",
+                              "Timeout": 1.0,
+                              "Metadata": null,
+                              "IsCompleted": false
+                            }
+                          }
+                        ]
+                      },
+                      "TargetStep": {
+                        "$id": "86",
+                        "$type": "StepRef, ",
+                        "LifeCycle": null,
+                        "StepMetadata": {
+                          "$id": "87",
+                          "$type": "StepMetadata, ",
+                          "Position": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "StepType": null,
+                          "Guid": "4deae075-d335-4185-9a2a-47b6b586def0"
+                        },
+                        "Parent": null
+                      },
+                      "Mode": null,
+                      "IsCompleted": false,
+                      "Metadata": {
+                        "$id": "88",
+                        "$type": "Metadata, ",
+                        "values": {
+                          "$id": "89",
+                          "$type": "MetadataValuesDictionary, ",
+                          "Conditions": {
+                            "$id": "90",
+                            "$type": "ConditionDictionary, ",
+                            "VRBuilder.Core.Attributes.FoldableAttribute": true,
+                            "VRBuilder.Core.Attributes.ReorderableListOfAttribute": {
+                              "$id": "91",
+                              "$type": "ListOfAttributeData, ",
+                              "ChildAttributes": {
+                                "$id": "92",
+                                "$type": "ChildAttributes, ",
+                                "$values": [
+                                  {
+                                    "$id": "93",
+                                    "$type": "FoldableAttribute, ",
+                                    "Name": "VRBuilder.Core.Attributes.FoldableAttribute",
+                                    "TypeId": "VRBuilder.Core.Attributes.FoldableAttribute, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                  },
+                                  {
+                                    "$id": "94",
+                                    "$type": "HelpAttribute, ",
+                                    "Name": "VRBuilder.Core.Attributes.HelpAttribute",
+                                    "TypeId": "VRBuilder.Core.Attributes.HelpAttribute, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                  },
+                                  {
+                                    "$id": "95",
+                                    "$type": "MenuAttribute, ",
+                                    "Name": "VRBuilder.Core.Attributes.MenuAttribute",
+                                    "TypeId": "VRBuilder.Core.Attributes.MenuAttribute, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                  }
+                                ]
+                              },
+                              "ChildMetadata": {
+                                "$id": "96",
+                                "$type": "ChildMetadata, ",
+                                "$values": [
+                                  {
+                                    "$id": "97",
+                                    "$type": "ConditionDictionary, ",
+                                    "VRBuilder.Core.Attributes.FoldableAttribute": true,
+                                    "VRBuilder.Core.Attributes.HelpAttribute": null,
+                                    "VRBuilder.Core.Attributes.MenuAttribute": null,
+                                    "ReorderableElement": {
+                                      "$id": "98",
+                                      "$type": "ReorderableElementMetadata, ",
+                                      "MoveUp": false,
+                                      "MoveDown": false,
+                                      "IsFirst": true,
+                                      "IsLast": true
+                                    }
+                                  }
+                                ]
+                              }
+                            },
+                            "VRBuilder.Core.Attributes.ExtendableListAttribute": {
+                              "$id": "99",
+                              "$type": "ExtendableListAttribute_Wrapper, ",
+                              "Type": "VRBuilder.Core.Conditions.ICondition, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Mode": null,
+          "ToUnlock": {
+            "$id": "100",
+            "$type": "LockablePropertyRefList, ",
+            "$values": []
+          },
+          "GroupsToUnlock": {
+            "$id": "101",
+            "$type": "GuidDictionary, "
+          },
+          "IsCompleted": false,
+          "Metadata": null
+        }
+      },
+      {
+        "$id": "102",
+        "$type": "Step, ",
+        "StepMetadata": {
+          "$id": "103",
+          "$type": "StepMetadata, ",
+          "Position": {
+            "x": 530.0,
+            "y": -78.66667
+          },
+          "StepType": "default",
+          "Guid": "61be40d1-45cf-4fd0-ba2e-0e12a49961e6"
+        },
+        "Data": {
+          "$id": "104",
+          "$type": "StepData, ",
+          "Name": "Step 3",
+          "Description": null,
+          "Behaviors": {
+            "$id": "105",
+            "$type": "BehaviorCollection, ",
+            "Data": {
+              "$id": "106",
+              "$type": "BehaviorCollectionData, ",
+              "Behaviors": {
+                "$id": "107",
+                "$type": "BehaviorList, ",
+                "$values": [
+                  {
+                    "$id": "108",
+                    "$type": "MoveObjectBehavior, ",
+                    "Data": {
+                      "$id": "109",
+                      "$type": "MoveObjectBehaviorData, ",
+                      "ExecutionStages": 1,
+                      "TargetObject": {
+                        "$id": "110",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "111",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "db2c9e6d-7d4a-463f-9991-46f4a33958db"
+                          ]
+                        }
+                      },
+                      "FinalPosition": {
+                        "$id": "112",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "113",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "d11a2ed8-30c5-496d-adc9-642876e005f3"
+                          ]
+                        }
+                      },
+                      "Duration": 4.0,
+                      "AnimationCurve": {
+                        "Keys": [
+                          {
+                            "Time": 0.0,
+                            "Value": 0.0,
+                            "InTangent": 0.0,
+                            "OutTangent": 1.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          },
+                          {
+                            "Time": 1.0,
+                            "Value": 1.0,
+                            "InTangent": 1.0,
+                            "OutTangent": 0.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          }
+                        ],
+                        "PreWrapMode": 8,
+                        "PostWrapMode": 8
+                      },
+                      "Metadata": null,
+                      "IsBlocking": true
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Transitions": {
+            "$id": "114",
+            "$type": "TransitionCollection, ",
+            "Data": {
+              "$id": "115",
+              "$type": "TransitionCollectionData, ",
+              "Transitions": {
+                "$id": "116",
+                "$type": "TransitionList, ",
+                "$values": [
+                  {
+                    "$id": "117",
+                    "$type": "Transition, ",
+                    "Data": {
+                      "$id": "118",
+                      "$type": "TransitionData, ",
+                      "Conditions": {
+                        "$id": "119",
+                        "$type": "ConditionList, ",
+                        "$values": []
+                      },
+                      "TargetStep": null,
+                      "Mode": null,
+                      "IsCompleted": false,
+                      "Metadata": {
+                        "$id": "120",
+                        "$type": "Metadata, ",
+                        "values": {
+                          "$id": "121",
+                          "$type": "MetadataValuesDictionary, ",
+                          "Conditions": {
+                            "$id": "122",
+                            "$type": "ConditionDictionary, ",
+                            "VRBuilder.Core.Attributes.FoldableAttribute": true,
+                            "VRBuilder.Core.Attributes.ReorderableListOfAttribute": {
+                              "$id": "123",
+                              "$type": "ListOfAttributeData, ",
+                              "ChildAttributes": {
+                                "$id": "124",
+                                "$type": "ChildAttributes, ",
+                                "$values": [
+                                  {
+                                    "$ref": "74"
+                                  },
+                                  {
+                                    "$ref": "75"
+                                  },
+                                  {
+                                    "$ref": "76"
+                                  }
+                                ]
+                              },
+                              "ChildMetadata": {
+                                "$id": "125",
+                                "$type": "ChildMetadata, ",
+                                "$values": []
+                              }
+                            },
+                            "VRBuilder.Core.Attributes.ExtendableListAttribute": {
+                              "$id": "126",
+                              "$type": "ExtendableListAttribute_Wrapper, ",
+                              "Type": "VRBuilder.Core.Conditions.ICondition, VRBuilder.Core, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Mode": null,
+          "ToUnlock": {
+            "$id": "127",
+            "$type": "LockablePropertyRefList, ",
+            "$values": []
+          },
+          "GroupsToUnlock": {
+            "$id": "128",
+            "$type": "GuidDictionary, "
+          },
+          "IsCompleted": false,
+          "Metadata": null
+        }
+      },
+      {
+        "$id": "129",
+        "$type": "Step, ",
+        "StepMetadata": {
+          "$id": "130",
+          "$type": "StepMetadata, ",
+          "Position": {
+            "x": 530.0,
+            "y": 102.666664
+          },
+          "StepType": "stepGroup",
+          "Guid": "4deae075-d335-4185-9a2a-47b6b586def0"
+        },
+        "Data": {
+          "$id": "131",
+          "$type": "StepData, ",
+          "Name": "Step Group",
+          "Description": null,
+          "Behaviors": {
+            "$id": "132",
+            "$type": "BehaviorCollection, ",
+            "Data": {
+              "$id": "133",
+              "$type": "BehaviorCollectionData, ",
+              "Behaviors": {
+                "$id": "134",
+                "$type": "BehaviorList, ",
+                "$values": [
+                  {
+                    "$id": "135",
+                    "$type": "ExecuteChapterBehavior, ",
+                    "Data": {
+                      "$id": "136",
+                      "$type": "ExecuteChapterBehaviorData, ",
+                      "Chapter": {
+                        "$ref": "3"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Transitions": {
+            "$id": "137",
+            "$type": "TransitionCollection, ",
+            "Data": {
+              "$id": "138",
+              "$type": "TransitionCollectionData, ",
+              "Transitions": {
+                "$id": "139",
+                "$type": "TransitionList, ",
+                "$values": [
+                  {
+                    "$id": "140",
+                    "$type": "Transition, ",
+                    "Data": {
+                      "$id": "141",
+                      "$type": "TransitionData, ",
+                      "Conditions": {
+                        "$id": "142",
+                        "$type": "ConditionList, ",
+                        "$values": []
+                      },
+                      "TargetStep": null,
+                      "Mode": null,
+                      "IsCompleted": false,
+                      "Metadata": null
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Mode": null,
+          "ToUnlock": {
+            "$id": "143",
+            "$type": "LockablePropertyRefList, ",
+            "$values": []
+          },
+          "GroupsToUnlock": {
+            "$id": "144",
+            "$type": "GuidDictionary, "
+          },
+          "IsCompleted": false,
+          "Metadata": null
+        }
+      },
+      {
+        "$id": "145",
+        "$type": "Step, ",
+        "StepMetadata": {
+          "$id": "146",
+          "$type": "StepMetadata, ",
+          "Position": {
+            "x": 132.0,
+            "y": 0.0
+          },
+          "StepType": "default",
+          "Guid": "b6f8a7bd-d089-4248-9e86-b538a97a65f1"
+        },
+        "Data": {
+          "$id": "147",
+          "$type": "StepData, ",
+          "Name": "Step 4",
+          "Description": null,
+          "Behaviors": {
+            "$id": "148",
+            "$type": "BehaviorCollection, ",
+            "Data": {
+              "$id": "149",
+              "$type": "BehaviorCollectionData, ",
+              "Behaviors": {
+                "$id": "150",
+                "$type": "BehaviorList, ",
+                "$values": [
+                  {
+                    "$id": "151",
+                    "$type": "MoveObjectBehavior, ",
+                    "Data": {
+                      "$id": "152",
+                      "$type": "MoveObjectBehaviorData, ",
+                      "ExecutionStages": 1,
+                      "TargetObject": {
+                        "$id": "153",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "154",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "db2c9e6d-7d4a-463f-9991-46f4a33958db"
+                          ]
+                        }
+                      },
+                      "FinalPosition": {
+                        "$id": "155",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "156",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "e7edac80-43cb-4fe8-a977-5f8c4c1efb71"
+                          ]
+                        }
+                      },
+                      "Duration": 4.0,
+                      "AnimationCurve": {
+                        "Keys": [
+                          {
+                            "Time": 0.0,
+                            "Value": 0.0,
+                            "InTangent": 0.0,
+                            "OutTangent": 1.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          },
+                          {
+                            "Time": 1.0,
+                            "Value": 1.0,
+                            "InTangent": 1.0,
+                            "OutTangent": 0.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          }
+                        ],
+                        "PreWrapMode": 8,
+                        "PostWrapMode": 8
+                      },
+                      "Metadata": null,
+                      "IsBlocking": true
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Transitions": {
+            "$id": "157",
+            "$type": "TransitionCollection, ",
+            "Data": {
+              "$id": "158",
+              "$type": "TransitionCollectionData, ",
+              "Transitions": {
+                "$id": "159",
+                "$type": "TransitionList, ",
+                "$values": [
+                  {
+                    "$id": "160",
+                    "$type": "Transition, ",
+                    "Data": {
+                      "$id": "161",
+                      "$type": "TransitionData, ",
+                      "Conditions": {
+                        "$id": "162",
+                        "$type": "ConditionList, ",
+                        "$values": []
+                      },
+                      "TargetStep": {
+                        "$id": "163",
+                        "$type": "StepRef, ",
+                        "LifeCycle": null,
+                        "StepMetadata": {
+                          "$id": "164",
+                          "$type": "StepMetadata, ",
+                          "Position": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "StepType": null,
+                          "Guid": "cac2ca3d-1c63-4ed3-8ede-ba08d2d5bea1"
+                        },
+                        "Parent": null
+                      },
+                      "Mode": null,
+                      "IsCompleted": false,
+                      "Metadata": null
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Mode": null,
+          "ToUnlock": {
+            "$id": "165",
+            "$type": "LockablePropertyRefList, ",
+            "$values": []
+          },
+          "GroupsToUnlock": {
+            "$id": "166",
+            "$type": "GuidDictionary, "
+          },
+          "IsCompleted": false,
+          "Metadata": null
+        }
+      },
+      {
+        "$id": "167",
+        "$type": "Step, ",
+        "StepMetadata": {
+          "$id": "168",
+          "$type": "StepMetadata, ",
+          "Position": {
+            "x": 296.666656,
+            "y": 0.0
+          },
+          "StepType": "default",
+          "Guid": "cac2ca3d-1c63-4ed3-8ede-ba08d2d5bea1"
+        },
+        "Data": {
+          "$id": "169",
+          "$type": "StepData, ",
+          "Name": "Step 5",
+          "Description": null,
+          "Behaviors": {
+            "$id": "170",
+            "$type": "BehaviorCollection, ",
+            "Data": {
+              "$id": "171",
+              "$type": "BehaviorCollectionData, ",
+              "Behaviors": {
+                "$id": "172",
+                "$type": "BehaviorList, ",
+                "$values": [
+                  {
+                    "$id": "173",
+                    "$type": "MoveObjectBehavior, ",
+                    "Data": {
+                      "$id": "174",
+                      "$type": "MoveObjectBehaviorData, ",
+                      "ExecutionStages": 1,
+                      "TargetObject": {
+                        "$id": "175",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "176",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "db2c9e6d-7d4a-463f-9991-46f4a33958db"
+                          ]
+                        }
+                      },
+                      "FinalPosition": {
+                        "$id": "177",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "178",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "a4ed7815-fcfa-413b-b60c-126b954b253e"
+                          ]
+                        }
+                      },
+                      "Duration": 5.0,
+                      "AnimationCurve": {
+                        "Keys": [
+                          {
+                            "Time": 0.0,
+                            "Value": 0.0,
+                            "InTangent": 0.0,
+                            "OutTangent": 1.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          },
+                          {
+                            "Time": 1.0,
+                            "Value": 1.0,
+                            "InTangent": 1.0,
+                            "OutTangent": 0.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          }
+                        ],
+                        "PreWrapMode": 8,
+                        "PostWrapMode": 8
+                      },
+                      "Metadata": null,
+                      "IsBlocking": true
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Transitions": {
+            "$id": "179",
+            "$type": "TransitionCollection, ",
+            "Data": {
+              "$id": "180",
+              "$type": "TransitionCollectionData, ",
+              "Transitions": {
+                "$id": "181",
+                "$type": "TransitionList, ",
+                "$values": [
+                  {
+                    "$id": "182",
+                    "$type": "Transition, ",
+                    "Data": {
+                      "$id": "183",
+                      "$type": "TransitionData, ",
+                      "Conditions": {
+                        "$id": "184",
+                        "$type": "ConditionList, ",
+                        "$values": []
+                      },
+                      "TargetStep": {
+                        "$id": "185",
+                        "$type": "StepRef, ",
+                        "LifeCycle": null,
+                        "StepMetadata": {
+                          "$id": "186",
+                          "$type": "StepMetadata, ",
+                          "Position": {
+                            "x": 0.0,
+                            "y": 0.0
+                          },
+                          "StepType": null,
+                          "Guid": "343f52af-ffb0-4623-b1e6-bda29245e087"
+                        },
+                        "Parent": null
+                      },
+                      "Mode": null,
+                      "IsCompleted": false,
+                      "Metadata": null
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Mode": null,
+          "ToUnlock": {
+            "$id": "187",
+            "$type": "LockablePropertyRefList, ",
+            "$values": []
+          },
+          "GroupsToUnlock": {
+            "$id": "188",
+            "$type": "GuidDictionary, "
+          },
+          "IsCompleted": false,
+          "Metadata": null
+        }
+      },
+      {
+        "$id": "189",
+        "$type": "Step, ",
+        "StepMetadata": {
+          "$id": "190",
+          "$type": "StepMetadata, ",
+          "Position": {
+            "x": 461.3333,
+            "y": 0.0
+          },
+          "StepType": "default",
+          "Guid": "343f52af-ffb0-4623-b1e6-bda29245e087"
+        },
+        "Data": {
+          "$id": "191",
+          "$type": "StepData, ",
+          "Name": "Step 6",
+          "Description": null,
+          "Behaviors": {
+            "$id": "192",
+            "$type": "BehaviorCollection, ",
+            "Data": {
+              "$id": "193",
+              "$type": "BehaviorCollectionData, ",
+              "Behaviors": {
+                "$id": "194",
+                "$type": "BehaviorList, ",
+                "$values": [
+                  {
+                    "$id": "195",
+                    "$type": "MoveObjectBehavior, ",
+                    "Data": {
+                      "$id": "196",
+                      "$type": "MoveObjectBehaviorData, ",
+                      "ExecutionStages": 1,
+                      "TargetObject": {
+                        "$id": "197",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "198",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "db2c9e6d-7d4a-463f-9991-46f4a33958db"
+                          ]
+                        }
+                      },
+                      "FinalPosition": {
+                        "$id": "199",
+                        "$type": "SingleSceneObjectReference, ",
+                        "guids": {
+                          "$id": "200",
+                          "$type": "GuidList, ",
+                          "$values": [
+                            "9d378539-8d2c-42ef-87b1-4ca5476d5c82"
+                          ]
+                        }
+                      },
+                      "Duration": 5.0,
+                      "AnimationCurve": {
+                        "Keys": [
+                          {
+                            "Time": 0.0,
+                            "Value": 0.0,
+                            "InTangent": 0.0,
+                            "OutTangent": 1.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          },
+                          {
+                            "Time": 1.0,
+                            "Value": 1.0,
+                            "InTangent": 1.0,
+                            "OutTangent": 0.0,
+                            "InWeight": 0.0,
+                            "OutWeight": 0.0,
+                            "WeightedMode": 0
+                          }
+                        ],
+                        "PreWrapMode": 8,
+                        "PostWrapMode": 8
+                      },
+                      "Metadata": null,
+                      "IsBlocking": true
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Transitions": {
+            "$id": "201",
+            "$type": "TransitionCollection, ",
+            "Data": {
+              "$id": "202",
+              "$type": "TransitionCollectionData, ",
+              "Transitions": {
+                "$id": "203",
+                "$type": "TransitionList, ",
+                "$values": [
+                  {
+                    "$id": "204",
+                    "$type": "Transition, ",
+                    "Data": {
+                      "$id": "205",
+                      "$type": "TransitionData, ",
+                      "Conditions": {
+                        "$id": "206",
+                        "$type": "ConditionList, ",
+                        "$values": []
+                      },
+                      "TargetStep": null,
+                      "Mode": null,
+                      "IsCompleted": false,
+                      "Metadata": null
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Mode": null,
+          "ToUnlock": {
+            "$id": "207",
+            "$type": "LockablePropertyRefList, ",
+            "$values": []
+          },
+          "GroupsToUnlock": {
+            "$id": "208",
+            "$type": "GuidDictionary, "
+          },
+          "IsCompleted": false,
+          "Metadata": null
+        }
+      }
+    ]
+  },
+  "Process": {
+    "$id": "209",
+    "$type": "Process, ",
+    "ProcessMetadata": {
+      "$id": "210",
+      "$type": "ProcessMetadata, ",
+      "StringLocalizationTable": null,
+      "Guid": "90440bd5-9f65-4ff2-8f93-99137b700009"
+    },
+    "Data": {
+      "$id": "211",
+      "$type": "ProcessData, ",
+      "Chapters": {
+        "$id": "212",
+        "$type": "ChapterList, ",
+        "$values": [
+          {
+            "$id": "213",
+            "$type": "Chapter, ",
+            "ChapterMetadata": {
+              "$id": "214",
+              "$type": "ChapterMetadata, ",
+              "LastSelectedStep": null,
+              "EntryNodePosition": {
+                "x": 0.0,
+                "y": 0.0
+              },
+              "Guid": "4a1362b1-3c06-4031-80a4-83e86ab1fc82",
+              "ViewTransform": {
+                "$id": "215",
+                "$type": "ViewTransform, ",
+                "Position": {
+                  "x": 350.0,
+                  "y": 426.666656,
+                  "z": 0.0
+                },
+                "Scale": {
+                  "x": 1.0,
+                  "y": 1.0,
+                  "z": 1.0
+                }
+              }
+            },
+            "Data": {
+              "$id": "216",
+              "$type": "ChapterData, ",
+              "Name": "Chapter 1",
+              "FirstStep": {
+                "$ref": "15"
+              },
+              "Steps": {
+                "$id": "217",
+                "$type": "StepList, ",
+                "$values": [
+                  {
+                    "$ref": "15"
+                  },
+                  {
+                    "$ref": "47"
+                  },
+                  {
+                    "$ref": "102"
+                  },
+                  {
+                    "$ref": "129"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FirstChapter": {
+        "$ref": "213"
+      },
+      "Name": "BackButtonTestProcess2",
+      "Mode": null,
+      "Metadata": null
+    }
+  },
+  "$serializerVersion": 1
+}

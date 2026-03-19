@@ -1,0 +1,97 @@
+# Unity YAML
+*.meta merge=unityyamlmerge eol=lf
+*.unity merge=unityyamlmerge eol=lf
+*.prefab merge=unityyamlmerge eol=lf
+*.asset merge=unityyamlmerge eol=lf
+*.controller merge=unityyamlmerge eol=lf
+*.anim merge=unityyamlmerge eol=lf
+*.overrideController merge=unityyamlmerge eol=lf
+*.mask merge=unityyamlmerge eol=lf
+*.mat merge=unityyamlmerge eol=lf
+*.physicMaterial merge=unityyamlmerge eol=lf
+*.physicsMaterial2D merge=unityyamlmerge eol=lf
+*.lighting merge=unityyamlmerge eol=lf
+*.signal merge=unityyamlmerge eol=lf
+*.playable merge=unityyamlmerge eol=lf
+*.renderTexture merge=unityyamlmerge eol=lf
+*.terrainlayer merge=unityyamlmerge eol=lf
+*.giparams merge=unityyamlmerge eol=lf
+*.flare merge=unityyamlmerge eol=lf
+*.brush merge=unityyamlmerge eol=lf
+
+# Text
+*.cs diff=csharp text=auto
+*.shader text=auto
+*.cginc text=auto
+*.hlsl text=auto
+*.compute text=auto
+*.json text=auto
+*.xml text=auto
+*.yaml text=auto
+*.yml text=auto
+*.txt text=auto
+*.md text=auto
+*.asmdef text=auto
+*.asmref text=auto
+
+# Binary - Images
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.bmp binary
+*.tga binary
+*.tif binary
+*.tiff binary
+*.psd binary
+*.exr binary
+*.hdr binary
+
+# Binary - Audio
+*.wav binary
+*.mp3 binary
+*.ogg binary
+*.aif binary
+*.aiff binary
+
+# Binary - Video
+*.mp4 binary
+*.mov binary
+*.avi binary
+*.webm binary
+
+# Binary - 3D Models
+*.fbx binary
+*.obj binary
+*.blend binary
+*.dae binary
+*.3ds binary
+*.max binary
+
+# Binary - Fonts
+*.ttf binary
+*.otf binary
+
+# Binary - Compiled
+*.dll binary
+*.pdb binary
+*.so binary
+*.dylib binary
+
+# Binary - Archives / Packages
+*.unitypackage binary
+*.zip binary
+*.7z binary
+*.gz binary
+*.tar binary
+
+# Collapse Unity-generated files in PRs
+*.meta linguist-generated=true
+
+# Git LFS (uncomment if using LFS)
+# *.png filter=lfs diff=lfs merge=lfs -text
+# *.jpg filter=lfs diff=lfs merge=lfs -text
+# *.fbx filter=lfs diff=lfs merge=lfs -text
+# *.wav filter=lfs diff=lfs merge=lfs -text
+# *.mp3 filter=lfs diff=lfs merge=lfs -text
+# *.psd filter=lfs diff=lfs merge=lfs -text

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls -la \"C:\\\\Users\\\\IKDru\\\\BuilderTest\\\\.claude\"\" 2>/dev/null || echo \"Directory does not exist \")",
+      "Bash(find /c/Users/IKDru/.claude -name *unity* -o -name *mcp*)",
+      "Bash(find /c/Users/IKDru/BuilderTest -name *mcp* -type f)",
+      "Bash(find /c/Users/IKDru/BuilderTest -name *.log -type f)",
+      "Bash(find /c/Users/IKDru/BuilderTest/Library/PackageCache/com.unity.ai.assistant@df09423d72a0 -name *.json)",
+      "Bash(find /c/Users/IKDru/BuilderTest -path */Logs/* -name *.log)",
+      "Bash(find /c/Users/IKDru/BuilderTest/Library/PackageCache/com.unity.ai.assistant@df09423d72a0 -name *.cs -o -name *.py -o -name *.sh)",
+      "Bash(find /c/Users/IKDru/BuilderTest/Library/PackageCache/com.unity.ai.assistant@df09423d72a0/Modules/Unity.AI.MCP* -name \"*.cs\")"
+    ]
+  }
+}
