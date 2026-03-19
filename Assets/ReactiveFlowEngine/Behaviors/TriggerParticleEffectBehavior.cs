@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ReactiveFlowEngine.Behaviors
 {
-    public class TriggerParticleEffectBehavior : IReversibleBehavior
+    public class TriggerParticleEffectBehavior : IReversibleBehavior, IStateCaptureBehavior
     {
         private readonly ISceneObjectResolver _resolver;
         private readonly string _targetGuid;
@@ -80,6 +80,17 @@ namespace ReactiveFlowEngine.Behaviors
             }
 
             await UniTask.CompletedTask;
+        }
+
+        public Dictionary<string, object> CaptureState()
+        {
+            return new Dictionary<string, object>
+            {
+                ["TargetGuid"] = _targetGuid,
+                ["Play"] = _play,
+                ["WasPlaying"] = _wasPlaying,
+                ["HasOriginalState"] = _hasOriginalState
+            };
         }
     }
 }

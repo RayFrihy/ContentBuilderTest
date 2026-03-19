@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace ReactiveFlowEngine.Behaviors
 {
-    public class PlaySpatialAudioBehavior : IReversibleBehavior
+    public class PlaySpatialAudioBehavior : IReversibleBehavior, IStateCaptureBehavior
     {
         private readonly ISceneObjectResolver _resolver;
         private readonly string _audioSourceGuid;
@@ -109,6 +109,18 @@ namespace ReactiveFlowEngine.Behaviors
             }
 
             await UniTask.CompletedTask;
+        }
+
+        public Dictionary<string, object> CaptureState()
+        {
+            return new Dictionary<string, object>
+            {
+                ["AudioSourceGuid"] = _audioSourceGuid,
+                ["OriginalSpatialBlend"] = _originalSpatialBlend,
+                ["OriginalPosition"] = _originalPosition,
+                ["MovedSource"] = _movedSource,
+                ["HasOriginalState"] = _hasOriginalState
+            };
         }
     }
 }

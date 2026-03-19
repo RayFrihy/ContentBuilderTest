@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 namespace ReactiveFlowEngine.Behaviors
 {
-    public class RaycastBehavior : IBehavior, IStateCaptureBehavior
+    public class RaycastBehavior : IReversibleBehavior, IStateCaptureBehavior
     {
         private readonly ISceneObjectResolver _resolver;
         private readonly IStateStore _stateStore;
@@ -20,6 +20,9 @@ namespace ReactiveFlowEngine.Behaviors
         private readonly string _resultStateKey;
         private readonly bool _isBlocking;
         private readonly ExecutionStages _stages;
+
+        private object _previousStateValue;
+        private bool _hadPreviousState;
 
         public ExecutionStages Stages => _stages;
         public bool IsBlocking => _isBlocking;
@@ -49,6 +52,9 @@ namespace ReactiveFlowEngine.Behaviors
             var origin = _resolver.Resolve(_originGuid);
             if (origin == null) return;
 
+            _previousStateValue = _stateStore.GetGlobalState(_resultStateKey);
+            _hadPreviousState = _stateStore.HasGlobalState(_resultStateKey);
+
             var dist = _maxDistance <= 0f ? Mathf.Infinity : _maxDistance;
 
             bool didHit = Physics.Raycast(origin.position, _direction, out RaycastHit hit, dist);
@@ -64,6 +70,19 @@ namespace ReactiveFlowEngine.Behaviors
 
             _stateStore.SetGlobalState(_resultStateKey, result);
 
+            await UniTask.CompletedTask;
+        }
+
+        public async UniTask UndoAsync(CancellationToken ct)
+        {
+            if (_hadPreviousState)
+            {
+                _stateStore.SetGlobalState(_resultStateKey, _previousStateValue);
+            }
+            else
+            {
+                _stateStore.RemoveGlobalState(_resultStateKey);
+            }
             await UniTask.CompletedTask;
         }
 

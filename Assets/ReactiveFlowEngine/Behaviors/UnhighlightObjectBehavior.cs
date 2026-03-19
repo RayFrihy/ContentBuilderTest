@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ReactiveFlowEngine.Behaviors
 {
-    public class UnhighlightObjectBehavior : IReversibleBehavior
+    public class UnhighlightObjectBehavior : IReversibleBehavior, IStateCaptureBehavior
     {
         private readonly ISceneObjectResolver _resolver;
         private readonly string _targetGuid;
@@ -76,6 +76,15 @@ namespace ReactiveFlowEngine.Behaviors
             }
 
             await UniTask.CompletedTask;
+        }
+
+        public Dictionary<string, object> CaptureState()
+        {
+            return new Dictionary<string, object>
+            {
+                ["TargetGuid"] = _targetGuid,
+                ["HasOriginalState"] = _hasOriginalState
+            };
         }
     }
 }

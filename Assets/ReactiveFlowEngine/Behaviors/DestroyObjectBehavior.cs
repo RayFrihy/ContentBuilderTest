@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ReactiveFlowEngine.Behaviors
 {
-    public class DestroyObjectBehavior : IBehavior, IStateCaptureBehavior
+    public class DestroyObjectBehavior : IReversibleBehavior, IStateCaptureBehavior
     {
         private readonly ISceneObjectResolver _resolver;
         private readonly string _targetGuid;
@@ -57,6 +57,14 @@ namespace ReactiveFlowEngine.Behaviors
                     System.TimeSpan.FromSeconds(_delay),
                     cancellationToken: ct);
             }
+        }
+
+        public async UniTask UndoAsync(CancellationToken ct)
+        {
+            if (!_hasCapturedState) return;
+
+            Debug.LogWarning($"[RFE] DestroyObjectBehavior: Cannot undo destruction of '{_targetGuid}'. Object state was captured at position {_lastKnownPosition}.");
+            await UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()
