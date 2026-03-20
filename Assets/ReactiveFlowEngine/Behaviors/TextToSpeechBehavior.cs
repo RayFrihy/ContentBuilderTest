@@ -30,10 +30,10 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
             Debug.Log($"[RFE-TTS] Speaking: '{_text}' (lang={_language})");
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
     }
 }

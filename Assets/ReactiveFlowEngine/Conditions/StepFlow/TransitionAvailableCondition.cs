@@ -4,11 +4,10 @@ using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.StepFlow
 {
-    public sealed class TransitionAvailableCondition : IStepFlowCondition
+    public sealed class TransitionAvailableCondition : ICondition
     {
         private readonly IFlowEngine _flowEngine;
         private readonly string _targetStepId;
-        private IDisposable _subscription;
 
         public TransitionAvailableCondition(IFlowEngine flowEngine, string targetStepId)
         {
@@ -24,11 +23,7 @@ namespace ReactiveFlowEngine.Conditions.StepFlow
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool HasTransitionToTarget(IStep currentStep)
         {

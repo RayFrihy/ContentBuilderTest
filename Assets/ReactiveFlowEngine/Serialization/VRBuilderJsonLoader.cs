@@ -18,7 +18,7 @@ namespace ReactiveFlowEngine.Serialization
             _modelBuilder = modelBuilder;
         }
 
-        public async UniTask<IProcess> LoadAsync(string json, CancellationToken ct)
+        public UniTask<IProcess> LoadAsync(string json, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
 
@@ -43,7 +43,7 @@ namespace ReactiveFlowEngine.Serialization
             if (wrapper == null)
             {
                 Debug.LogError("[RFE] Failed to deserialize JSON process wrapper.");
-                return null;
+                return UniTask.FromResult<IProcess>(null);
             }
 
             ct.ThrowIfCancellationRequested();
@@ -63,11 +63,10 @@ namespace ReactiveFlowEngine.Serialization
             if (!validation.IsValid)
             {
                 Debug.LogError("[RFE] Process validation failed. Aborting load.");
-                return null;
+                return UniTask.FromResult<IProcess>(null);
             }
 
-            await UniTask.CompletedTask;
-            return process;
+            return UniTask.FromResult<IProcess>(process);
         }
     }
 }

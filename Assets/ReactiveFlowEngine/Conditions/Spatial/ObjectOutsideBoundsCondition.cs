@@ -11,7 +11,6 @@ namespace ReactiveFlowEngine.Conditions.Spatial
         private readonly string _targetObjectId;
         private readonly Vector3 _boundsCenter;
         private readonly Vector3 _boundsSize;
-        private IDisposable _subscription;
 
         public string TargetObjectId => _targetObjectId;
 
@@ -32,11 +31,7 @@ namespace ReactiveFlowEngine.Conditions.Spatial
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool IsOutsideBounds()
         {

@@ -46,10 +46,18 @@ namespace ReactiveFlowEngine.Behaviors
 
         public async UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] RotateObjectBehavior: SceneObjectResolver is null, skipping.");
+                return;
+            }
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] RotateObjectBehavior: Target object '{_targetGuid}' not found.");
+                return;
+            }
 
             _originalRotation = _useLocalRotation ? target.localRotation : target.rotation;
             _hasOriginalState = true;
@@ -79,19 +87,19 @@ namespace ReactiveFlowEngine.Behaviors
                 target.rotation = endRot;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (_resolver == null || !_hasOriginalState) return;
+            if (_resolver == null || !_hasOriginalState) return UniTask.CompletedTask;
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null) return UniTask.CompletedTask;
 
             if (_useLocalRotation)
                 target.localRotation = _originalRotation;
             else
                 target.rotation = _originalRotation;
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

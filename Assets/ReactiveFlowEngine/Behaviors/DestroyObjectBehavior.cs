@@ -39,10 +39,18 @@ namespace ReactiveFlowEngine.Behaviors
 
         public async UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] DestroyObjectBehavior: SceneObjectResolver is null, skipping.");
+                return;
+            }
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] DestroyObjectBehavior: Target object '{_targetGuid}' not found.");
+                return;
+            }
 
             _lastKnownPosition = target.position;
             _lastKnownRotation = target.rotation;
@@ -59,12 +67,12 @@ namespace ReactiveFlowEngine.Behaviors
             }
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (!_hasCapturedState) return;
+            if (!_hasCapturedState) return UniTask.CompletedTask;
 
             Debug.LogWarning($"[RFE] DestroyObjectBehavior: Cannot undo destruction of '{_targetGuid}'. Object state was captured at position {_lastKnownPosition}.");
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

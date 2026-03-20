@@ -8,7 +8,6 @@ namespace ReactiveFlowEngine.Conditions.Interaction
     {
         private readonly IEventBus _eventBus;
         private readonly string _targetObjectId;
-        private IDisposable _subscription;
         private bool _isGrabbed;
 
         public string TargetObjectId => _targetObjectId;
@@ -31,11 +30,7 @@ namespace ReactiveFlowEngine.Conditions.Interaction
             _isGrabbed = false;
         }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool FilterByTarget(object payload)
         {

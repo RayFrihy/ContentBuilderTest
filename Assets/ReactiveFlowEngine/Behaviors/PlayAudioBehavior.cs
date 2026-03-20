@@ -47,10 +47,18 @@ namespace ReactiveFlowEngine.Behaviors
 
         public async UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] PlayAudioBehavior: SceneObjectResolver is null, skipping.");
+                return;
+            }
 
             var target = _resolver.Resolve(_audioSourceGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] PlayAudioBehavior: Audio source object '{_audioSourceGuid}' not found.");
+                return;
+            }
 
             _source = target.GetComponent<AudioSource>();
             if (_source == null) return;
@@ -82,15 +90,15 @@ namespace ReactiveFlowEngine.Behaviors
             }
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (_source == null || !_hasOriginalState) return;
+            if (_source == null || !_hasOriginalState) return UniTask.CompletedTask;
 
             _source.Stop();
             _source.clip = _originalClip;
             _source.volume = _originalVolume;
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

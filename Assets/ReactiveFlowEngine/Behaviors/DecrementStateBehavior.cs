@@ -35,22 +35,22 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
             var current = _stateStore.GetGlobalState(_key);
             _previousFloatValue = current != null ? Convert.ToSingle(current) : 0f;
             float newValue = _previousFloatValue - _amount;
             _stateStore.SetGlobalState(_key, newValue);
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
             var current = _stateStore.GetGlobalState(_key);
             float currentValue = current != null ? Convert.ToSingle(current) : 0f;
             float restoredValue = currentValue + _amount;
             _stateStore.SetGlobalState(_key, restoredValue);
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

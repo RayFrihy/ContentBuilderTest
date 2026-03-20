@@ -43,10 +43,18 @@ namespace ReactiveFlowEngine.Behaviors
 
         public async UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] ScaleObjectBehavior: SceneObjectResolver is null, skipping.");
+                return;
+            }
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] ScaleObjectBehavior: Target object '{_targetGuid}' not found.");
+                return;
+            }
 
             _originalScale = target.localScale;
             _hasOriginalState = true;
@@ -69,15 +77,15 @@ namespace ReactiveFlowEngine.Behaviors
             target.localScale = endScale;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (_resolver == null || !_hasOriginalState) return;
+            if (_resolver == null || !_hasOriginalState) return UniTask.CompletedTask;
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null) return UniTask.CompletedTask;
 
             target.localScale = _originalScale;
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

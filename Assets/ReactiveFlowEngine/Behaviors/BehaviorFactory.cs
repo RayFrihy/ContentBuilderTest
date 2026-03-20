@@ -53,11 +53,11 @@ namespace ReactiveFlowEngine.Behaviors
                 "ScaleObjectBehavior" => CreateScaleObject(definition),
                 "SetTransformBehavior" => CreateSetTransform(definition),
                 "TeleportObjectBehavior" => CreateTeleportObject(definition),
-                "EnableObjectBehavior" => new EnableObjectBehavior(
-                    _sceneResolver, definition.GetString("TargetObject"),
+                "EnableObjectBehavior" => new SetActiveBehavior(
+                    _sceneResolver, definition.GetString("TargetObject"), true,
                     definition.GetBool("IsBlocking"), (ExecutionStages)definition.GetInt("ExecutionStages")),
-                "DisableObjectBehavior" => new DisableObjectBehavior(
-                    _sceneResolver, definition.GetString("TargetObject"),
+                "DisableObjectBehavior" => new SetActiveBehavior(
+                    _sceneResolver, definition.GetString("TargetObject"), false,
                     definition.GetBool("IsBlocking"), (ExecutionStages)definition.GetInt("ExecutionStages")),
                 "DestroyObjectBehavior" => new DestroyObjectBehavior(
                     _sceneResolver, definition.GetString("TargetObject"),
@@ -98,12 +98,12 @@ namespace ReactiveFlowEngine.Behaviors
                     definition.GetFloat("TargetAlpha"), definition.GetFloat("Duration"),
                     definition.GetAnimationCurve("AnimationCurve"),
                     definition.GetBool("IsBlocking"), (ExecutionStages)definition.GetInt("ExecutionStages")),
-                "ShowObjectBehavior" => new ShowObjectBehavior(
-                    _sceneResolver, definition.GetString("TargetObject"),
+                "ShowObjectBehavior" => new SetRendererVisibilityBehavior(
+                    _sceneResolver, definition.GetString("TargetObject"), true,
                     definition.GetBool("IncludeChildren"),
                     definition.GetBool("IsBlocking"), (ExecutionStages)definition.GetInt("ExecutionStages")),
-                "HideObjectBehavior" => new HideObjectBehavior(
-                    _sceneResolver, definition.GetString("TargetObject"),
+                "HideObjectBehavior" => new SetRendererVisibilityBehavior(
+                    _sceneResolver, definition.GetString("TargetObject"), false,
                     definition.GetBool("IncludeChildren"),
                     definition.GetBool("IsBlocking"), (ExecutionStages)definition.GetInt("ExecutionStages")),
                 "PlayAnimationBehavior" => new PlayAnimationBehavior(
@@ -263,7 +263,8 @@ namespace ReactiveFlowEngine.Behaviors
         private IBehavior CreateExecuteChapter(BehaviorDefinition def) =>
             new ExecuteChapterBehavior(
                 def.GetChapter("Chapter"),
-                null); // Runner delegate set at runtime by FlowEngine
+                null, // Runner delegate set at runtime by FlowEngine
+                def.GetString("ChapterGuid"));
 
         private IBehavior CreateRotateObject(BehaviorDefinition def) =>
             new RotateObjectBehavior(

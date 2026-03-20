@@ -4,10 +4,9 @@ using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.StepFlow
 {
-    public sealed class NextStepAvailableCondition : IStepFlowCondition
+    public sealed class NextStepAvailableCondition : ICondition
     {
         private readonly IFlowEngine _flowEngine;
-        private IDisposable _subscription;
 
         public NextStepAvailableCondition(IFlowEngine flowEngine)
         {
@@ -22,11 +21,7 @@ namespace ReactiveFlowEngine.Conditions.StepFlow
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool HasNextStep(IStep currentStep)
         {

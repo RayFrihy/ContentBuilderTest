@@ -5,14 +5,13 @@ using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.Environment
 {
-    public sealed class RaycastHitCondition : IEnvironmentCondition
+    public sealed class RaycastHitCondition : ICondition
     {
         private readonly ISceneObjectResolver _resolver;
         private readonly string _sourceObjectId;
         private readonly string _targetObjectId;
         private readonly float _maxDistance;
         private readonly LayerMask _layerMask;
-        private IDisposable _subscription;
 
         public RaycastHitCondition(ISceneObjectResolver resolver, string sourceObjectId, string targetObjectId, float maxDistance, int layerMask)
         {
@@ -32,11 +31,7 @@ namespace ReactiveFlowEngine.Conditions.Environment
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool CheckRaycastHit()
         {

@@ -38,17 +38,17 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null) return UniTask.CompletedTask;
 
             if (_argument != null)
                 target.gameObject.SendMessage(_methodName, _argument, SendMessageOptions.DontRequireReceiver);
             else
                 target.gameObject.SendMessage(_methodName, SendMessageOptions.DontRequireReceiver);
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
     }
 }

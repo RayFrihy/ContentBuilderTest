@@ -8,7 +8,6 @@ namespace ReactiveFlowEngine.Conditions.State
     {
         private readonly IStateStore _stateStore;
         private readonly string _flagKey;
-        private IDisposable _subscription;
 
         public string StateKey => _flagKey;
 
@@ -27,11 +26,7 @@ namespace ReactiveFlowEngine.Conditions.State
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool IsFlagSet()
         {

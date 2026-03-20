@@ -12,7 +12,6 @@ namespace ReactiveFlowEngine.Conditions.Spatial
         private readonly string _referenceObjectId;
         private readonly float _threshold;
         private readonly ComparisonOperator _comparisonOperator;
-        private IDisposable _subscription;
 
         public string TargetObjectId => _targetObjectId;
 
@@ -39,11 +38,7 @@ namespace ReactiveFlowEngine.Conditions.Spatial
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool MeetsThreshold()
         {

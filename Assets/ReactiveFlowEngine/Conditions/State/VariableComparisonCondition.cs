@@ -10,7 +10,6 @@ namespace ReactiveFlowEngine.Conditions.State
         private readonly string _leftKey;
         private readonly string _rightKey;
         private readonly ComparisonOperator _comparisonOperator;
-        private IDisposable _subscription;
 
         public string StateKey => _leftKey;
 
@@ -31,11 +30,7 @@ namespace ReactiveFlowEngine.Conditions.State
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool CompareValues()
         {

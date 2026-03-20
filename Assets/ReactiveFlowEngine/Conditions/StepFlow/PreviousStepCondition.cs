@@ -1,19 +1,17 @@
 using System;
-using System.Collections.Generic;
 using R3;
 using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.StepFlow
 {
-    public sealed class PreviousStepCondition : IStepFlowCondition
+    public sealed class PreviousStepCondition : ICondition
     {
-        private readonly IStateStore _stateStore;
+        private readonly IHistoryService _historyService;
         private readonly string _expectedPreviousStepId;
-        private IDisposable _subscription;
 
-        public PreviousStepCondition(IStateStore stateStore, string expectedPreviousStepId)
+        public PreviousStepCondition(IHistoryService historyService, string expectedPreviousStepId)
         {
-            _stateStore = stateStore ?? throw new ArgumentNullException(nameof(stateStore));
+            _historyService = historyService ?? throw new ArgumentNullException(nameof(historyService));
             _expectedPreviousStepId = expectedPreviousStepId ?? throw new ArgumentNullException(nameof(expectedPreviousStepId));
         }
 
@@ -26,20 +24,16 @@ namespace ReactiveFlowEngine.Conditions.StepFlow
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool IsPreviousStep()
         {
-            var history = _stateStore.GetHistory();
-            if (history.Count == 0)
+            var entries = _historyService.GetAll();
+            if (entries.Count == 0)
                 return false;
 
-            var lastStepId = history[history.Count - 1];
-            return string.Equals(lastStepId, _expectedPreviousStepId, StringComparison.Ordinal);
+            var lastEntry = entries[entries.Count - 1];
+            return string.Equals(lastEntry.StepId, _expectedPreviousStepId, StringComparison.Ordinal);
         }
     }
 }

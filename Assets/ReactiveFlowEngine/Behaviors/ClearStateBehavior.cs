@@ -34,7 +34,7 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
             if (_key == null)
             {
@@ -47,10 +47,10 @@ namespace ReactiveFlowEngine.Behaviors
                 _hadPreviousValue = _stateStore.HasGlobalState(_key);
                 _stateStore.RemoveGlobalState(_key);
             }
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
             if (_key == null)
             {
@@ -66,7 +66,7 @@ namespace ReactiveFlowEngine.Behaviors
                     _stateStore.SetGlobalState(_key, _previousValue);
                 }
             }
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

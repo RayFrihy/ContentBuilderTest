@@ -40,12 +40,20 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] SpawnObjectBehavior: SceneObjectResolver is null, skipping.");
+                return UniTask.CompletedTask;
+            }
 
             var template = _resolver.Resolve(_prefabGuid);
-            if (template == null) return;
+            if (template == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] SpawnObjectBehavior: Prefab object '{_prefabGuid}' not found.");
+                return UniTask.CompletedTask;
+            }
 
             _spawnedObject = Object.Instantiate(template.gameObject, _position, _rotation);
 
@@ -58,10 +66,10 @@ namespace ReactiveFlowEngine.Behaviors
                 }
             }
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
             if (_spawnedObject != null)
             {
@@ -69,7 +77,7 @@ namespace ReactiveFlowEngine.Behaviors
                 _spawnedObject = null;
             }
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

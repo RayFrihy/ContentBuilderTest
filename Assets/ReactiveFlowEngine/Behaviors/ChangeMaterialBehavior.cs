@@ -38,24 +38,32 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] ChangeMaterialBehavior: SceneObjectResolver is null, skipping.");
+                return UniTask.CompletedTask;
+            }
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] ChangeMaterialBehavior: Target object '{_targetGuid}' not found.");
+                return UniTask.CompletedTask;
+            }
 
             var renderer = target.GetComponent<Renderer>();
-            if (renderer == null) return;
+            if (renderer == null) return UniTask.CompletedTask;
 
             var materials = renderer.materials;
-            if (_materialIndex < 0 || _materialIndex >= materials.Length) return;
+            if (_materialIndex < 0 || _materialIndex >= materials.Length) return UniTask.CompletedTask;
 
             _originalMaterial = materials[_materialIndex];
             _hasOriginalState = true;
 
             var newMaterial = Resources.Load<Material>(_materialPath);
-            if (newMaterial == null) return;
+            if (newMaterial == null) return UniTask.CompletedTask;
 
             var updatedMaterials = new Material[materials.Length];
             for (int i = 0; i < materials.Length; i++)
@@ -66,21 +74,21 @@ namespace ReactiveFlowEngine.Behaviors
             updatedMaterials[_materialIndex] = newMaterial;
             renderer.materials = updatedMaterials;
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (_resolver == null || !_hasOriginalState) return;
+            if (_resolver == null || !_hasOriginalState) return UniTask.CompletedTask;
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null) return UniTask.CompletedTask;
 
             var renderer = target.GetComponent<Renderer>();
-            if (renderer == null) return;
+            if (renderer == null) return UniTask.CompletedTask;
 
             var materials = renderer.materials;
-            if (_materialIndex < 0 || _materialIndex >= materials.Length) return;
+            if (_materialIndex < 0 || _materialIndex >= materials.Length) return UniTask.CompletedTask;
 
             var updatedMaterials = new Material[materials.Length];
             for (int i = 0; i < materials.Length; i++)
@@ -91,7 +99,7 @@ namespace ReactiveFlowEngine.Behaviors
             updatedMaterials[_materialIndex] = _originalMaterial;
             renderer.materials = updatedMaterials;
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

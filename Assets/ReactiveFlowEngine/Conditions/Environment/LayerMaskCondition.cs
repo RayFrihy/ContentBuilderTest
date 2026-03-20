@@ -5,12 +5,11 @@ using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.Environment
 {
-    public sealed class LayerMaskCondition : IEnvironmentCondition
+    public sealed class LayerMaskCondition : ICondition
     {
         private readonly ISceneObjectResolver _resolver;
         private readonly string _targetObjectId;
         private readonly LayerMask _expectedLayerMask;
-        private IDisposable _subscription;
 
         public LayerMaskCondition(ISceneObjectResolver resolver, string targetObjectId, int expectedLayerMask)
         {
@@ -28,11 +27,7 @@ namespace ReactiveFlowEngine.Conditions.Environment
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool IsOnExpectedLayer()
         {

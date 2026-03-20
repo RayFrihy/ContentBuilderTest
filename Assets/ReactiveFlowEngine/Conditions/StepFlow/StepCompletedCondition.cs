@@ -4,15 +4,14 @@ using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.StepFlow
 {
-    public sealed class StepCompletedCondition : IStepFlowCondition
+    public sealed class StepCompletedCondition : ICondition
     {
-        private readonly IStateStore _stateStore;
+        private readonly IHistoryService _historyService;
         private readonly string _stepId;
-        private IDisposable _subscription;
 
-        public StepCompletedCondition(IStateStore stateStore, string stepId)
+        public StepCompletedCondition(IHistoryService historyService, string stepId)
         {
-            _stateStore = stateStore ?? throw new ArgumentNullException(nameof(stateStore));
+            _historyService = historyService ?? throw new ArgumentNullException(nameof(historyService));
             _stepId = stepId ?? throw new ArgumentNullException(nameof(stepId));
         }
 
@@ -25,21 +24,11 @@ namespace ReactiveFlowEngine.Conditions.StepFlow
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool IsStepCompleted()
         {
-            var history = _stateStore.GetHistory();
-            for (int i = 0; i < history.Count; i++)
-            {
-                if (string.Equals(history[i], _stepId, StringComparison.Ordinal))
-                    return true;
-            }
-            return false;
+            return _historyService.Contains(_stepId);
         }
     }
 }

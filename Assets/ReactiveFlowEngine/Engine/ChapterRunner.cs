@@ -1,6 +1,7 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using ReactiveFlowEngine.Abstractions;
+using ReactiveFlowEngine.Navigation;
 using UnityEngine;
 
 namespace ReactiveFlowEngine.Engine
@@ -9,11 +10,13 @@ namespace ReactiveFlowEngine.Engine
     {
         private readonly IStepRunner _stepRunner;
         private readonly IStateStore _stateStore;
+        private readonly IHistoryService _historyService;
 
-        public ChapterRunner(IStepRunner stepRunner, IStateStore stateStore)
+        public ChapterRunner(IStepRunner stepRunner, IStateStore stateStore, IHistoryService historyService)
         {
             _stepRunner = stepRunner ?? throw new System.ArgumentNullException(nameof(stepRunner));
             _stateStore = stateStore ?? throw new System.ArgumentNullException(nameof(stateStore));
+            _historyService = historyService ?? throw new System.ArgumentNullException(nameof(historyService));
         }
 
         public async UniTask RunAsync(IChapter chapter, CancellationToken ct)
@@ -49,7 +52,7 @@ namespace ReactiveFlowEngine.Engine
 
                 // Capture snapshot and push history
                 _stateStore.CaptureSnapshot(currentStep);
-                _stateStore.PushHistory(currentStep.Id);
+                _historyService.Push(new HistoryEntry(chapter.Id, currentStep.Id));
 
                 if (transition.TargetStep == null)
                 {

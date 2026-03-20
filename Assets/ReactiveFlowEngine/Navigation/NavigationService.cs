@@ -1,20 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
 using ReactiveFlowEngine.Abstractions;
-using ReactiveFlowEngine.Engine;
 using UnityEngine;
 
 namespace ReactiveFlowEngine.Navigation
 {
     public class NavigationService : INavigationService
     {
-        private readonly FlowEngine _engine;
+        private readonly IFlowEngine _engine;
+        private readonly IEngineController _engineController;
         private readonly IStepRunner _stepRunner;
         private readonly IStateStore _stateStore;
-        private readonly HistoryStack _historyStack = new HistoryStack();
+        private readonly IHistoryService _historyService;
         private readonly Subject<NavigationEvent> _onNavigated = new Subject<NavigationEvent>();
         private readonly SemaphoreSlim _navigationLock = new SemaphoreSlim(1, 1);
 
@@ -28,30 +27,33 @@ namespace ReactiveFlowEngine.Navigation
 
         public bool CanGoBack
         {
-            get { return _historyStack.CanGoBack; }
+            get { return _historyService.CanGoBack; }
         }
 
         public bool CanGoForward
         {
             get
             {
-                // Forward is possible if engine is running and we're not at the end
                 var step = _engine?.CurrentStep.CurrentValue;
                 return step != null && _engine?.State.CurrentValue == EngineState.Running;
             }
         }
 
-        public NavigationService(FlowEngine engine, IStepRunner stepRunner, IStateStore stateStore)
+        public NavigationService(IFlowEngine engine, IEngineController engineController,
+                                  IStepRunner stepRunner, IStateStore stateStore,
+                                  IHistoryService historyService)
         {
             _engine = engine ?? throw new ArgumentNullException(nameof(engine));
+            _engineController = engineController ?? throw new ArgumentNullException(nameof(engineController));
             _stepRunner = stepRunner ?? throw new ArgumentNullException(nameof(stepRunner));
             _stateStore = stateStore ?? throw new ArgumentNullException(nameof(stateStore));
+            _historyService = historyService ?? throw new ArgumentNullException(nameof(historyService));
         }
 
         public void SetCurrentProcess(IProcess process)
         {
             _currentProcess = process;
-            _historyStack.Clear();
+            _historyService.Clear();
         }
 
         public async UniTask NextStepAsync(CancellationToken ct)
@@ -101,7 +103,7 @@ namespace ReactiveFlowEngine.Navigation
                     return;
                 }
 
-                if (!_historyStack.CanGoBack)
+                if (!_historyService.CanGoBack)
                 {
                     Debug.LogWarning("[RFE] Cannot go back: no history.");
                     return;
@@ -114,7 +116,7 @@ namespace ReactiveFlowEngine.Navigation
                 await UndoStepBehaviorsAsync(currentStep, ct);
 
                 // Pop from history stack
-                var previousEntry = _historyStack.Pop();
+                var previousEntry = _historyService.Pop();
                 if (previousEntry == null)
                 {
                     Debug.LogWarning("[RFE] Previous entry is null.");
@@ -122,9 +124,6 @@ namespace ReactiveFlowEngine.Navigation
                 }
 
                 var previousStepId = previousEntry.StepId;
-
-                // Pop from state store history
-                _stateStore.PopHistory();
 
                 // Restore snapshot
                 var snapshot = _stateStore.GetSnapshot(previousStepId);
@@ -137,7 +136,7 @@ namespace ReactiveFlowEngine.Navigation
                 var previousStep = FindStep(previousStepId);
                 if (previousStep != null)
                 {
-                    _engine.GetCurrentStepProperty().Value = previousStep;
+                    _engineController.SetCurrentStep(previousStep);
                     EmitNavigationEvent(NavigationType.Reverse, currentStep.Id, previousStepId);
                     Debug.Log($"[RFE] Navigated back to step: {previousStep.Name}");
                 }
@@ -189,7 +188,7 @@ namespace ReactiveFlowEngine.Navigation
                 _stepRunner.CancelCurrentStep();
 
                 // Check if target is in history (behind us)
-                if (_historyStack.Contains(stepId))
+                if (_historyService.Contains(stepId))
                 {
                     // Unwind backwards to target
                     await UnwindToStepAsync(stepId, ct);
@@ -198,12 +197,11 @@ namespace ReactiveFlowEngine.Navigation
                 {
                     // Jump forward - record current position
                     _stateStore.CaptureSnapshot(currentStep);
-                    _stateStore.PushHistory(currentStep.Id);
-                    _historyStack.Push(new HistoryEntry(
+                    _historyService.Push(new HistoryEntry(
                         _engine.CurrentChapter.CurrentValue?.Id, currentStep.Id));
                 }
 
-                _engine.GetCurrentStepProperty().Value = targetStep;
+                _engineController.SetCurrentStep(targetStep);
                 EmitNavigationEvent(NavigationType.Jump, currentStep.Id, stepId);
                 Debug.Log($"[RFE] Jumped to step: {targetStep.Name}");
             }
@@ -268,8 +266,8 @@ namespace ReactiveFlowEngine.Navigation
                     return;
                 }
 
-                _engine.GetCurrentChapterProperty().Value = targetChapter;
-                _engine.GetCurrentStepProperty().Value = targetChapter.FirstStep;
+                _engineController.SetCurrentChapter(targetChapter);
+                _engineController.SetCurrentStep(targetChapter.FirstStep);
 
                 EmitNavigationEvent(NavigationType.Jump,
                     currentStep?.Id, targetChapter.FirstStep?.Id);
@@ -308,10 +306,10 @@ namespace ReactiveFlowEngine.Navigation
                 await UndoStepBehaviorsAsync(currentStep, ct);
 
                 // Restore the entry snapshot (snapshot from before entering this step)
-                var history = _stateStore.GetHistory();
-                if (history.Count > 0)
+                var entries = _historyService.GetAll();
+                if (entries.Count > 0)
                 {
-                    var previousStepId = history[history.Count - 1];
+                    var previousStepId = entries[entries.Count - 1].StepId;
                     var snapshot = _stateStore.GetSnapshot(previousStepId);
                     if (snapshot != null)
                     {
@@ -320,7 +318,7 @@ namespace ReactiveFlowEngine.Navigation
                 }
 
                 // Re-enter the same step (engine will re-run it)
-                _engine.GetCurrentStepProperty().Value = currentStep;
+                _engineController.SetCurrentStep(currentStep);
                 EmitNavigationEvent(NavigationType.Restart, currentStep.Id, currentStep.Id);
                 Debug.Log($"[RFE] Restarted step: {currentStep.Name}");
             }
@@ -339,7 +337,7 @@ namespace ReactiveFlowEngine.Navigation
             if (step == null)
                 return;
 
-            _historyStack.Push(new HistoryEntry(chapter?.Id, step.Id));
+            _historyService.Push(new HistoryEntry(chapter?.Id, step.Id));
         }
 
         public void Dispose()
@@ -387,14 +385,13 @@ namespace ReactiveFlowEngine.Navigation
         private async UniTask UnwindToStepAsync(string targetStepId, CancellationToken ct)
         {
             // Iteratively undo steps from current back to target
-            while (_historyStack.CanGoBack)
+            while (_historyService.CanGoBack)
             {
-                var entry = _historyStack.Peek();
+                var entry = _historyService.Peek();
                 if (entry == null || entry.StepId == targetStepId)
                     break;
 
-                _historyStack.Pop();
-                _stateStore.PopHistory();
+                _historyService.Pop();
 
                 var step = FindStep(entry.StepId);
                 if (step != null)

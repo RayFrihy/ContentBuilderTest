@@ -10,9 +10,6 @@ namespace ReactiveFlowEngine.Abstractions
         StepSnapshot CaptureSnapshot(IStep step);
         UniTask RestoreSnapshotAsync(StepSnapshot snapshot, CancellationToken ct);
         StepSnapshot GetSnapshot(string stepId);
-        IReadOnlyList<string> GetHistory();
-        void PushHistory(string stepId);
-        string PopHistory();
         void Clear();
 
         // Global state management

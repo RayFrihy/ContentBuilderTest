@@ -28,17 +28,17 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
             _previousMode = Physics.simulationMode;
             Physics.simulationMode = SimulationMode.FixedUpdate;
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
             Physics.simulationMode = _previousMode;
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
     }
 }

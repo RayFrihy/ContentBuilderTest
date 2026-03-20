@@ -40,10 +40,18 @@ namespace ReactiveFlowEngine.Behaviors
 
         public async UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] PlayAnimationBehavior: SceneObjectResolver is null, skipping.");
+                return;
+            }
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] PlayAnimationBehavior: Target object '{_targetGuid}' not found.");
+                return;
+            }
 
             var animator = target.GetComponent<Animator>();
             if (animator == null) return;

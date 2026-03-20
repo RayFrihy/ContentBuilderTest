@@ -9,7 +9,6 @@ namespace ReactiveFlowEngine.Conditions.Interaction
         private readonly IEventBus _eventBus;
         private readonly string _targetObjectId;
         private readonly GestureType _gestureType;
-        private IDisposable _subscription;
 
         public string TargetObjectId => _targetObjectId;
         public GestureType GestureType => _gestureType;
@@ -30,11 +29,7 @@ namespace ReactiveFlowEngine.Conditions.Interaction
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool FilterByGesture(object payload)
         {

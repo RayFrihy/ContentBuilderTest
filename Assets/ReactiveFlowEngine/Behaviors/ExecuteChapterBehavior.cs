@@ -13,11 +13,13 @@ namespace ReactiveFlowEngine.Behaviors
 
         public ExecutionStages Stages => ExecutionStages.Activation;
         public bool IsBlocking => true;
+        public string SubChapterGuid { get; }
 
-        public ExecuteChapterBehavior(ChapterModel subChapter, Func<IChapter, CancellationToken, UniTask> chapterRunner)
+        public ExecuteChapterBehavior(ChapterModel subChapter, Func<IChapter, CancellationToken, UniTask> chapterRunner, string subChapterGuid = null)
         {
             _subChapter = subChapter;
             _chapterRunner = chapterRunner;
+            SubChapterGuid = subChapterGuid;
         }
 
         public void SetChapterRunner(Func<IChapter, CancellationToken, UniTask> chapterRunner)
@@ -44,11 +46,11 @@ namespace ReactiveFlowEngine.Behaviors
             await _chapterRunner(_subChapter, ct);
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
             // Undo of sub-chapter execution is handled by the NavigationService
             // which unwinds the sub-chapter's history stack
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
     }
 }

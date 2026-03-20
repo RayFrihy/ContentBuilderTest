@@ -36,15 +36,23 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] StopAudioBehavior: SceneObjectResolver is null, skipping.");
+                return UniTask.CompletedTask;
+            }
 
             var target = _resolver.Resolve(_audioSourceGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] StopAudioBehavior: Audio source object '{_audioSourceGuid}' not found.");
+                return UniTask.CompletedTask;
+            }
 
             _source = target.GetComponent<AudioSource>();
-            if (_source == null) return;
+            if (_source == null) return UniTask.CompletedTask;
 
             _wasPlaying = _source.isPlaying;
             _playbackTime = _source.time;
@@ -53,12 +61,12 @@ namespace ReactiveFlowEngine.Behaviors
 
             _source.Stop();
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (_source == null || !_hasOriginalState) return;
+            if (_source == null || !_hasOriginalState) return UniTask.CompletedTask;
 
             if (_wasPlaying)
             {
@@ -67,7 +75,7 @@ namespace ReactiveFlowEngine.Behaviors
                 _source.Play();
             }
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

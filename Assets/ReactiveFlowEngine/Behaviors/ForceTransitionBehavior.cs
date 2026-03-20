@@ -27,10 +27,10 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
             _stepRunner.CancelCurrentStep();
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
     }
 }

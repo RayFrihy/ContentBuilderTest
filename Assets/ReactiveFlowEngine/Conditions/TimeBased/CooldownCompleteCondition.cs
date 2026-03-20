@@ -9,7 +9,6 @@ namespace ReactiveFlowEngine.Conditions.TimeBased
         private readonly IEventBus _eventBus;
         private readonly string _cooldownId;
         private readonly float _cooldownDuration;
-        private IDisposable _subscription;
 
         public float Duration => _cooldownDuration;
 
@@ -34,11 +33,7 @@ namespace ReactiveFlowEngine.Conditions.TimeBased
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool IsMatchingCooldown(object payload)
         {

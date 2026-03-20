@@ -7,10 +7,11 @@ using UnityEngine;
 
 namespace ReactiveFlowEngine.Behaviors
 {
-    public class HideObjectBehavior : IReversibleBehavior, IStateCaptureBehavior
+    public class SetRendererVisibilityBehavior : IReversibleBehavior, IStateCaptureBehavior
     {
         private readonly ISceneObjectResolver _resolver;
         private readonly string _targetGuid;
+        private readonly bool _targetVisibility;
         private readonly bool _includeChildren;
         private readonly bool _isBlocking;
         private readonly ExecutionStages _stages;
@@ -21,26 +22,36 @@ namespace ReactiveFlowEngine.Behaviors
         public ExecutionStages Stages => _stages;
         public bool IsBlocking => _isBlocking;
 
-        public HideObjectBehavior(
+        public SetRendererVisibilityBehavior(
             ISceneObjectResolver resolver,
             string targetGuid,
+            bool targetVisibility,
             bool includeChildren = true,
             bool isBlocking = true,
             ExecutionStages stages = ExecutionStages.Activation)
         {
             _resolver = resolver;
             _targetGuid = targetGuid;
+            _targetVisibility = targetVisibility;
             _includeChildren = includeChildren;
             _isBlocking = isBlocking;
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                Debug.LogWarning($"[RFE] SetRendererVisibilityBehavior: SceneObjectResolver is null, skipping.");
+                return UniTask.CompletedTask;
+            }
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                Debug.LogWarning($"[RFE] SetRendererVisibilityBehavior: Target object '{_targetGuid}' not found.");
+                return UniTask.CompletedTask;
+            }
 
             Renderer[] renderers;
             if (_includeChildren)
@@ -60,16 +71,16 @@ namespace ReactiveFlowEngine.Behaviors
                 ct.ThrowIfCancellationRequested();
 
                 _originalEnabledStates[renderer] = renderer.enabled;
-                renderer.enabled = false;
+                renderer.enabled = _targetVisibility;
             }
 
             _hasOriginalState = true;
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (_resolver == null || !_hasOriginalState) return;
+            if (_resolver == null || !_hasOriginalState) return UniTask.CompletedTask;
 
             foreach (var kvp in _originalEnabledStates)
             {
@@ -79,7 +90,7 @@ namespace ReactiveFlowEngine.Behaviors
                 kvp.Key.enabled = kvp.Value;
             }
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()
@@ -88,6 +99,7 @@ namespace ReactiveFlowEngine.Behaviors
             {
                 ["HasOriginalState"] = _hasOriginalState,
                 ["TargetGuid"] = _targetGuid,
+                ["TargetVisibility"] = _targetVisibility,
                 ["IncludeChildren"] = _includeChildren
             };
         }

@@ -20,17 +20,20 @@ namespace ReactiveFlowEngine.Conditions
         private readonly IEventBus _eventBus;
         private readonly IStateStore _stateStore;
         private readonly IFlowEngine _flowEngine;
+        private readonly IHistoryService _historyService;
 
         public ConditionFactory(
             ISceneObjectResolver resolver,
             IEventBus eventBus,
             IStateStore stateStore,
-            IFlowEngine flowEngine)
+            IFlowEngine flowEngine,
+            IHistoryService historyService = null)
         {
             _resolver = resolver;
             _eventBus = eventBus;
             _stateStore = stateStore;
             _flowEngine = flowEngine;
+            _historyService = historyService;
         }
 
         public ICondition Create(ConditionDefinition definition)
@@ -46,17 +49,18 @@ namespace ReactiveFlowEngine.Conditions
                 "CompositeOrCondition" => CreateCompositeOr(definition),
                 "CompositeNotCondition" => CreateCompositeNot(definition),
 
-                // Interaction conditions
-                "ObjectGrabbedCondition" => new ObjectGrabbedCondition(_eventBus, definition.GetString("TargetObjectId")),
-                "ObjectReleasedCondition" => new ObjectReleasedCondition(_eventBus, definition.GetString("TargetObjectId")),
-                "ObjectTouchedCondition" => new ObjectTouchedCondition(_eventBus, definition.GetString("TargetObjectId")),
-                "ObjectUsedCondition" => new ObjectUsedCondition(_eventBus, definition.GetString("TargetObjectId")),
+                // Interaction conditions (consolidated via EventBusCondition)
+                "ObjectGrabbedCondition" => new EventBusCondition(_eventBus, "ObjectGrabbed", definition.GetString("TargetObjectId")),
+                "ObjectReleasedCondition" => new EventBusCondition(_eventBus, "ObjectReleased", definition.GetString("TargetObjectId")),
+                "ObjectTouchedCondition" => new EventBusCondition(_eventBus, "ObjectTouched", definition.GetString("TargetObjectId")),
+                "ObjectUsedCondition" => new EventBusCondition(_eventBus, "ObjectUsed", definition.GetString("TargetObjectId")),
+                "ObjectSelectedCondition" => new EventBusCondition(_eventBus, "ObjectSelected", definition.GetString("TargetObjectId")),
+                "ObjectDeselectedCondition" => new EventBusCondition(_eventBus, "ObjectDeselected", definition.GetString("TargetObjectId")),
+                "ButtonPressedCondition" => new EventBusCondition(_eventBus, "ButtonPressed", definition.GetString("ButtonId")),
+                "ButtonReleasedCondition" => new EventBusCondition(_eventBus, "ButtonReleased", definition.GetString("ButtonId")),
+                "InputActionTriggeredCondition" => new EventBusCondition(_eventBus, "InputActionTriggered", definition.GetString("ActionName")),
+                // ObjectHoveredCondition kept as separate class (dual enter/exit events)
                 "ObjectHoveredCondition" => new ObjectHoveredCondition(_eventBus, definition.GetString("TargetObjectId")),
-                "ObjectSelectedCondition" => new ObjectSelectedCondition(_eventBus, definition.GetString("TargetObjectId")),
-                "ObjectDeselectedCondition" => new ObjectDeselectedCondition(_eventBus, definition.GetString("TargetObjectId")),
-                "ButtonPressedCondition" => new ButtonPressedCondition(_eventBus, definition.GetString("ButtonId")),
-                "ButtonReleasedCondition" => new ButtonReleasedCondition(_eventBus, definition.GetString("ButtonId")),
-                "InputActionTriggeredCondition" => new InputActionTriggeredCondition(_eventBus, definition.GetString("ActionName")),
                 "GesturePerformedCondition" => new GesturePerformedCondition(
                     _eventBus,
                     definition.GetString("TargetObjectId"),
@@ -116,9 +120,9 @@ namespace ReactiveFlowEngine.Conditions
                 "FlagSetCondition" => new FlagSetCondition(_stateStore, definition.GetString("FlagKey")),
 
                 // Step/Flow conditions
-                "StepCompletedCondition" => new StepCompletedCondition(_stateStore, definition.GetString("StepId")),
+                "StepCompletedCondition" => new StepCompletedCondition(_historyService, definition.GetString("StepId")),
                 "StepActiveCondition" => new StepActiveCondition(_flowEngine, definition.GetString("StepId")),
-                "PreviousStepCondition" => new PreviousStepCondition(_stateStore, definition.GetString("ExpectedPreviousStepId")),
+                "PreviousStepCondition" => new PreviousStepCondition(_historyService, definition.GetString("ExpectedPreviousStepId")),
                 "NextStepAvailableCondition" => new NextStepAvailableCondition(_flowEngine),
                 "TransitionAvailableCondition" => new TransitionAvailableCondition(_flowEngine, definition.GetString("TargetStepId")),
                 "ProcessStartedCondition" => new ProcessStartedCondition(_flowEngine),

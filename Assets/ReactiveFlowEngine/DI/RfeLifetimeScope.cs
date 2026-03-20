@@ -16,16 +16,23 @@ namespace ReactiveFlowEngine.DI
         protected override void Configure(IContainerBuilder builder)
         {
             // Core engine
-            builder.Register<FlowEngine>(Lifetime.Singleton).As<IFlowEngine>().AsSelf();
+            builder.Register<FlowEngine>(Lifetime.Singleton)
+                .As<IFlowEngine>()
+                .As<IEngineController>()
+                .AsSelf();
             builder.Register<StepRunner>(Lifetime.Singleton).As<IStepRunner>();
             builder.Register<TransitionEvaluator>(Lifetime.Singleton).As<ITransitionEvaluator>();
-            builder.Register<NavigationService>(Lifetime.Singleton).As<INavigationService>().AsSelf();
             builder.Register<ChapterRunner>(Lifetime.Singleton);
 
-            // State
+            // Navigation
+            builder.Register<NavigationService>(Lifetime.Singleton)
+                .As<INavigationService>()
+                .AsSelf();
+
+            // State & History
             builder.Register<StateStore>(Lifetime.Singleton).As<IStateStore>().AsSelf();
             builder.Register<EventBus>(Lifetime.Singleton).As<IEventBus>();
-            builder.Register<HistoryStack>(Lifetime.Singleton);
+            builder.Register<HistoryStack>(Lifetime.Singleton).As<IHistoryService>();
 
             // Serialization
             builder.Register<VRBuilderJsonLoader>(Lifetime.Singleton).As<IProcessLoader>();

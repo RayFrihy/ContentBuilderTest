@@ -11,7 +11,6 @@ namespace ReactiveFlowEngine.Conditions.State
         private readonly string _targetObjectId;
         private readonly string _propertyName;
         private readonly object _expectedValue;
-        private IDisposable _subscription;
 
         public string StateKey => _propertyName;
 
@@ -32,11 +31,7 @@ namespace ReactiveFlowEngine.Conditions.State
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool CheckProperty()
         {

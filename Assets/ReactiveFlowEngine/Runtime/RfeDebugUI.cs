@@ -11,7 +11,7 @@ namespace ReactiveFlowEngine.Runtime
     {
         [Inject] private IFlowEngine _engine;
         [Inject] private INavigationService _navigationService;
-        [Inject] private IStateStore _stateStore;
+        [Inject] private IHistoryService _historyService;
 
         private string _currentStepName = "None";
         private string _currentChapterName = "None";
@@ -28,7 +28,7 @@ namespace ReactiveFlowEngine.Runtime
             _currentStepName = step?.Name ?? "None";
             _currentChapterName = chapter?.Name ?? "None";
             _engineState = _engine.State.CurrentValue.ToString();
-            _historyCount = _stateStore?.GetHistory()?.Count ?? 0;
+            _historyCount = _historyService?.GetAll()?.Count ?? 0;
             _canGoBack = _navigationService?.CanGoBack ?? false;
         }
 

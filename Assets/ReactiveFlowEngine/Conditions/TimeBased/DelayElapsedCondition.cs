@@ -7,7 +7,6 @@ namespace ReactiveFlowEngine.Conditions.TimeBased
     public sealed class DelayElapsedCondition : ITimeBasedCondition
     {
         private readonly float _delay;
-        private IDisposable _subscription;
 
         public float Duration => _delay;
 
@@ -25,10 +24,6 @@ namespace ReactiveFlowEngine.Conditions.TimeBased
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
     }
 }

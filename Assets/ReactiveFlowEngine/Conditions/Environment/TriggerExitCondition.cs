@@ -4,12 +4,11 @@ using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.Environment
 {
-    public sealed class TriggerExitCondition : IEnvironmentCondition
+    public sealed class TriggerExitCondition : ICondition
     {
         private readonly IEventBus _eventBus;
         private readonly string _triggerObjectId;
         private readonly string _exitingObjectId;
-        private IDisposable _subscription;
 
         public TriggerExitCondition(IEventBus eventBus, string triggerObjectId, string exitingObjectId)
         {
@@ -27,11 +26,7 @@ namespace ReactiveFlowEngine.Conditions.Environment
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool IsMatchingTrigger(object payload)
         {

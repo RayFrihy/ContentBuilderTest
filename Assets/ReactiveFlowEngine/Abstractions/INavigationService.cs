@@ -1,10 +1,11 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
 
 namespace ReactiveFlowEngine.Abstractions
 {
-    public interface INavigationService
+    public interface INavigationService : IDisposable
     {
         Observable<NavigationEvent> OnNavigated { get; }
         UniTask NextStepAsync(CancellationToken ct);

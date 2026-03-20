@@ -4,11 +4,10 @@ using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.Environment
 {
-    public sealed class ObjectExistsCondition : IEnvironmentCondition
+    public sealed class ObjectExistsCondition : ICondition
     {
         private readonly ISceneObjectResolver _resolver;
         private readonly string _targetObjectId;
-        private IDisposable _subscription;
 
         public ObjectExistsCondition(ISceneObjectResolver resolver, string targetObjectId)
         {
@@ -25,10 +24,6 @@ namespace ReactiveFlowEngine.Conditions.Environment
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
     }
 }

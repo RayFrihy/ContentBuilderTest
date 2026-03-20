@@ -37,9 +37,9 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_stateStore == null) return;
+            if (_stateStore == null) return UniTask.CompletedTask;
 
             var startKey = $"Timer_{_timerName}_Start";
             var runningKey = $"Timer_{_timerName}_Running";
@@ -61,12 +61,12 @@ namespace ReactiveFlowEngine.Behaviors
 
             _stateStore.SetGlobalState(runningKey, false);
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (_stateStore == null) return;
+            if (_stateStore == null) return UniTask.CompletedTask;
 
             var startKey = $"Timer_{_timerName}_Start";
             var runningKey = $"Timer_{_timerName}_Running";
@@ -87,7 +87,7 @@ namespace ReactiveFlowEngine.Behaviors
             else
                 _stateStore.RemoveGlobalState(startKey);
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

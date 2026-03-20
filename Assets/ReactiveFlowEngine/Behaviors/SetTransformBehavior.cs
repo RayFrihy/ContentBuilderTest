@@ -46,12 +46,20 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] SetTransformBehavior: SceneObjectResolver is null, skipping.");
+                return UniTask.CompletedTask;
+            }
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] SetTransformBehavior: Target object '{_targetGuid}' not found.");
+                return UniTask.CompletedTask;
+            }
 
             _originalPosition = _useLocal ? target.localPosition : target.position;
             _originalRotation = _useLocal ? target.localRotation : target.rotation;
@@ -79,15 +87,15 @@ namespace ReactiveFlowEngine.Behaviors
                 target.localScale = _scale.Value;
             }
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (_resolver == null || !_hasOriginalState) return;
+            if (_resolver == null || !_hasOriginalState) return UniTask.CompletedTask;
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null) return UniTask.CompletedTask;
 
             if (_useLocal)
             {
@@ -101,7 +109,7 @@ namespace ReactiveFlowEngine.Behaviors
             }
 
             target.localScale = _originalScale;
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

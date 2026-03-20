@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json.Linq;
 using ReactiveFlowEngine.Abstractions;
 using ReactiveFlowEngine.Model;
 using ReactiveFlowEngine.Serialization.JsonModels;
@@ -113,19 +114,16 @@ namespace ReactiveFlowEngine.Serialization
                 if (step.Type != StepType.StepGroup)
                     continue;
 
-                // Find the matching sub-chapter for this step group
+                // Find the matching sub-chapter for each ExecuteChapterBehavior using its stored GUID
                 ChapterModel linkedSubChapter = null;
                 foreach (var behavior in step.BehaviorList)
                 {
                     if (behavior is Behaviors.ExecuteChapterBehavior execBehavior)
                     {
-                        // The behavior was created with a null sub-chapter.
-                        // Find the sub-chapter by matching the GUID stored during BuildStep.
-                        // For now, assign the first available sub-chapter (sample JSON has one per group).
-                        foreach (var subChapter in subChapterLookup.Values)
+                        var guid = execBehavior.SubChapterGuid;
+                        if (guid != null && subChapterLookup.TryGetValue(guid, out var matched))
                         {
-                            linkedSubChapter = subChapter;
-                            break;
+                            linkedSubChapter = matched;
                         }
                     }
                 }
@@ -137,10 +135,10 @@ namespace ReactiveFlowEngine.Serialization
                 {
                     for (int i = 0; i < step.BehaviorList.Count; i++)
                     {
-                        if (step.BehaviorList[i] is Behaviors.ExecuteChapterBehavior)
+                        if (step.BehaviorList[i] is Behaviors.ExecuteChapterBehavior oldExec)
                         {
                             step.BehaviorList[i] = new Behaviors.ExecuteChapterBehavior(
-                                linkedSubChapter, null);
+                                linkedSubChapter, null, oldExec.SubChapterGuid);
                         }
                     }
                 }
@@ -323,6 +321,23 @@ namespace ReactiveFlowEngine.Serialization
                 }
                 return def;
             }
+            else if (behaviorObj is JsonGenericBehavior generic && generic.Data != null)
+            {
+                // Generic fallback for all other behavior types
+                var typeName = generic.TypeDiscriminator;
+                if (string.IsNullOrEmpty(typeName))
+                {
+                    Debug.LogWarning("[RFE] GenericBehavior has no TypeDiscriminator, skipping.");
+                    return null;
+                }
+
+                var def = new BehaviorDefinition { TypeName = typeName };
+                foreach (var kvp in generic.Data)
+                {
+                    def.Parameters[kvp.Key] = ResolveJsonValue(kvp.Value);
+                }
+                return def;
+            }
 
             return null;
         }
@@ -340,8 +355,64 @@ namespace ReactiveFlowEngine.Serialization
                     }
                 };
             }
+            else if (condObj is JsonGenericCondition generic && generic.Data != null)
+            {
+                // Generic fallback for all other condition types
+                var typeName = generic.TypeDiscriminator;
+                if (string.IsNullOrEmpty(typeName))
+                {
+                    Debug.LogWarning("[RFE] GenericCondition has no TypeDiscriminator, skipping.");
+                    return null;
+                }
+
+                var def = new ConditionDefinition { TypeName = typeName };
+                foreach (var kvp in generic.Data)
+                {
+                    def.Parameters[kvp.Key] = ResolveJsonValue(kvp.Value);
+                }
+                return def;
+            }
 
             return null;
+        }
+
+        /// <summary>
+        /// Recursively resolves Newtonsoft JObject/JArray types into plain .NET types,
+        /// and extracts scene object GUIDs from nested { "guids": [...] } structures.
+        /// </summary>
+        private static object ResolveJsonValue(object value)
+        {
+            if (value is JObject jObj)
+            {
+                // Check if this is a scene object reference (has "guids" property)
+                if (jObj.TryGetValue("guids", StringComparison.OrdinalIgnoreCase, out var guidsToken))
+                {
+                    var guids = guidsToken as JArray;
+                    if (guids != null && guids.Count > 0)
+                        return guids[0]?.ToString();
+                }
+
+                // Convert JObject to Dictionary
+                var dict = new Dictionary<string, object>();
+                foreach (var prop in jObj.Properties())
+                {
+                    dict[prop.Name] = ResolveJsonValue(prop.Value);
+                }
+                return dict;
+            }
+            else if (value is JArray jArr)
+            {
+                var list = new List<object>(jArr.Count);
+                foreach (var item in jArr)
+                    list.Add(ResolveJsonValue(item));
+                return list;
+            }
+            else if (value is JValue jVal)
+            {
+                return jVal.Value;
+            }
+
+            return value;
         }
 
         private StepType ParseStepType(string stepType)

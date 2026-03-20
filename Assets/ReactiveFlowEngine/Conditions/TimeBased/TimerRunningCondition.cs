@@ -8,7 +8,6 @@ namespace ReactiveFlowEngine.Conditions.TimeBased
     {
         private readonly IEventBus _eventBus;
         private readonly string _timerId;
-        private IDisposable _subscription;
 
         public float Duration => 0f;
 
@@ -34,11 +33,7 @@ namespace ReactiveFlowEngine.Conditions.TimeBased
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool IsMatchingTimer(object payload)
         {

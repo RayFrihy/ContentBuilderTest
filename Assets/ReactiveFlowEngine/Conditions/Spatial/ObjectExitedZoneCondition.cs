@@ -10,7 +10,6 @@ namespace ReactiveFlowEngine.Conditions.Spatial
         private readonly ISceneObjectResolver _resolver;
         private readonly string _targetObjectId;
         private readonly string _zoneObjectId;
-        private IDisposable _subscription;
 
         public string TargetObjectId => _targetObjectId;
 
@@ -30,11 +29,7 @@ namespace ReactiveFlowEngine.Conditions.Spatial
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool IsOutsideZone()
         {

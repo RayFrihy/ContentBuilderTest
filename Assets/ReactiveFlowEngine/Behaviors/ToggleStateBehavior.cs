@@ -32,18 +32,18 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
             var current = _stateStore.GetGlobalState(_key);
             _originalBoolValue = current is bool b ? b : false;
             _stateStore.SetGlobalState(_key, !_originalBoolValue);
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
             _stateStore.SetGlobalState(_key, _originalBoolValue);
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

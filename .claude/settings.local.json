@@ -10,5 +10,9 @@
       "Bash(find /c/Users/IKDru/BuilderTest/Library/PackageCache/com.unity.ai.assistant@df09423d72a0 -name *.cs -o -name *.py -o -name *.sh)",
       "Bash(find /c/Users/IKDru/BuilderTest/Library/PackageCache/com.unity.ai.assistant@df09423d72a0/Modules/Unity.AI.MCP* -name \"*.cs\")"
     ]
-  }
+  },
+  "enabledMcpjsonServers": [
+    "unity-mcp"
+  ],
+  "enableAllProjectMcpServers": true
 }

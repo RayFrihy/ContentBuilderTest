@@ -43,10 +43,18 @@ namespace ReactiveFlowEngine.Behaviors
 
         public async UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] FadeObjectBehavior: SceneObjectResolver is null, skipping.");
+                return;
+            }
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] FadeObjectBehavior: Target object '{_targetGuid}' not found.");
+                return;
+            }
 
             var renderers = target.GetComponentsInChildren<Renderer>();
             _originalStates = new List<(Renderer, Color)>(renderers.Length);
@@ -100,9 +108,9 @@ namespace ReactiveFlowEngine.Behaviors
             }
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (_resolver == null || !_hasOriginalState) return;
+            if (_resolver == null || !_hasOriginalState) return UniTask.CompletedTask;
 
             foreach (var (renderer, originalColor) in _originalStates)
             {
@@ -112,7 +120,7 @@ namespace ReactiveFlowEngine.Behaviors
                 renderer.material.color = originalColor;
             }
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

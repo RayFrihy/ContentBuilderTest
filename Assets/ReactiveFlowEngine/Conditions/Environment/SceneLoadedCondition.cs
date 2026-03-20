@@ -4,11 +4,10 @@ using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.Environment
 {
-    public sealed class SceneLoadedCondition : IEnvironmentCondition
+    public sealed class SceneLoadedCondition : ICondition
     {
         private readonly IEventBus _eventBus;
         private readonly string _sceneName;
-        private IDisposable _subscription;
 
         public SceneLoadedCondition(IEventBus eventBus, string sceneName)
         {
@@ -25,11 +24,7 @@ namespace ReactiveFlowEngine.Conditions.Environment
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool IsMatchingScene(object payload)
         {

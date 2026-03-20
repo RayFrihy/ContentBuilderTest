@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using R3;
@@ -8,11 +7,12 @@ using UnityEngine;
 
 namespace ReactiveFlowEngine.Engine
 {
-    public class FlowEngine : IFlowEngine
+    public class FlowEngine : IFlowEngine, IEngineController
     {
         private readonly IStepRunner _stepRunner;
         private readonly IStateStore _stateStore;
         private readonly ChapterRunner _chapterRunner;
+        private readonly IHistoryService _historyService;
         private CancellationTokenSource _processCts;
 
         private readonly ReactiveProperty<EngineState> _state = new ReactiveProperty<EngineState>(EngineState.Idle);
@@ -34,11 +34,13 @@ namespace ReactiveFlowEngine.Engine
             get { return _currentChapter; }
         }
 
-        public FlowEngine(IStepRunner stepRunner, IStateStore stateStore)
+        public FlowEngine(IStepRunner stepRunner, IStateStore stateStore,
+                          ChapterRunner chapterRunner, IHistoryService historyService)
         {
             _stepRunner = stepRunner ?? throw new ArgumentNullException(nameof(stepRunner));
             _stateStore = stateStore ?? throw new ArgumentNullException(nameof(stateStore));
-            _chapterRunner = new ChapterRunner(stepRunner, stateStore);
+            _chapterRunner = chapterRunner ?? throw new ArgumentNullException(nameof(chapterRunner));
+            _historyService = historyService ?? throw new ArgumentNullException(nameof(historyService));
         }
 
         public async UniTask StartProcessAsync(IProcess process, CancellationToken ct)
@@ -60,6 +62,7 @@ namespace ReactiveFlowEngine.Engine
 
             _state.Value = EngineState.Running;
             _stateStore.Clear();
+            _historyService.Clear();
 
             Debug.Log($"[RFE] Starting process: {process.Name} ({process.Id})");
 
@@ -101,7 +104,7 @@ namespace ReactiveFlowEngine.Engine
                         // Transition occurred
                         _state.Value = EngineState.Transitioning;
                         _stateStore.CaptureSnapshot(currentStep);
-                        _stateStore.PushHistory(currentStep.Id);
+                        _historyService.Push(new Navigation.HistoryEntry(chapter.Id, currentStep.Id));
 
                         if (transition.TargetStep == null)
                         {
@@ -136,7 +139,7 @@ namespace ReactiveFlowEngine.Engine
             }
         }
 
-        public async UniTask StopAsync()
+        public UniTask StopAsync()
         {
             if (_processCts != null && !_processCts.IsCancellationRequested)
             {
@@ -152,7 +155,26 @@ namespace ReactiveFlowEngine.Engine
             _processCts?.Dispose();
             _processCts = null;
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
+        }
+
+        // IEngineController implementation
+        public void SetCurrentStep(IStep step)
+        {
+            _currentStep.Value = step;
+        }
+
+        public void SetCurrentChapter(IChapter chapter)
+        {
+            _currentChapter.Value = chapter;
+        }
+
+        public void Dispose()
+        {
+            _state?.Dispose();
+            _currentStep?.Dispose();
+            _currentChapter?.Dispose();
+            _processCts?.Dispose();
         }
 
         private void WireChapterBehaviors(IProcess process)
@@ -203,32 +225,6 @@ namespace ReactiveFlowEngine.Engine
                     }
                 }
             }
-        }
-
-        // Internal methods for NavigationService access
-        internal IStepRunner GetStepRunner()
-        {
-            return _stepRunner;
-        }
-
-        internal IStateStore GetStateStore()
-        {
-            return _stateStore;
-        }
-
-        internal ReactiveProperty<IStep> GetCurrentStepProperty()
-        {
-            return _currentStep;
-        }
-
-        internal ReactiveProperty<IChapter> GetCurrentChapterProperty()
-        {
-            return _currentChapter;
-        }
-
-        internal ReactiveProperty<EngineState> GetStateProperty()
-        {
-            return _state;
         }
     }
 }

@@ -10,7 +10,6 @@ namespace ReactiveFlowEngine.Conditions.State
         private readonly string _stateKey;
         private object _previousValue;
         private bool _initialized;
-        private IDisposable _subscription;
 
         public string StateKey => _stateKey;
 
@@ -33,11 +32,7 @@ namespace ReactiveFlowEngine.Conditions.State
             _initialized = false;
         }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool HasChanged()
         {

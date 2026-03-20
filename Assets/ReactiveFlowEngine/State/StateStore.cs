@@ -13,7 +13,6 @@ namespace ReactiveFlowEngine.State
     public class StateStore : IStateStore
     {
         private readonly Dictionary<string, StepSnapshot> _snapshots = new Dictionary<string, StepSnapshot>();
-        private readonly List<string> _history = new List<string>();
         private readonly Dictionary<string, object> _globalState = new Dictionary<string, object>();
         private readonly int _maxSnapshots;
         private readonly object _lockObject = new object();
@@ -52,10 +51,10 @@ namespace ReactiveFlowEngine.State
             }
         }
 
-        public async UniTask RestoreSnapshotAsync(StepSnapshot snapshot, CancellationToken ct)
+        public UniTask RestoreSnapshotAsync(StepSnapshot snapshot, CancellationToken ct)
         {
             if (snapshot == null)
-                return;
+                return UniTask.CompletedTask;
 
             lock (_lockObject)
             {
@@ -66,7 +65,7 @@ namespace ReactiveFlowEngine.State
                 }
             }
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public StepSnapshot GetSnapshot(string stepId)
@@ -81,44 +80,11 @@ namespace ReactiveFlowEngine.State
             }
         }
 
-        public IReadOnlyList<string> GetHistory()
-        {
-            lock (_lockObject)
-            {
-                return new List<string>(_history).AsReadOnly();
-            }
-        }
-
-        public void PushHistory(string stepId)
-        {
-            if (stepId == null)
-                return;
-
-            lock (_lockObject)
-            {
-                _history.Add(stepId);
-            }
-        }
-
-        public string PopHistory()
-        {
-            lock (_lockObject)
-            {
-                if (_history.Count == 0)
-                    return null;
-
-                var last = _history[_history.Count - 1];
-                _history.RemoveAt(_history.Count - 1);
-                return last;
-            }
-        }
-
         public void Clear()
         {
             lock (_lockObject)
             {
                 _snapshots.Clear();
-                _history.Clear();
                 _globalState.Clear();
             }
         }

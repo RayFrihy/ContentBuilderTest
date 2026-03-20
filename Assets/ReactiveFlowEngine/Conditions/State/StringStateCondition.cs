@@ -10,7 +10,6 @@ namespace ReactiveFlowEngine.Conditions.State
         private readonly string _stateKey;
         private readonly string _expectedValue;
         private readonly bool _ignoreCase;
-        private IDisposable _subscription;
 
         public string StateKey => _stateKey;
 
@@ -31,11 +30,7 @@ namespace ReactiveFlowEngine.Conditions.State
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool CheckState()
         {

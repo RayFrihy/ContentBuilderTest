@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Navigation
 {
@@ -34,7 +35,7 @@ namespace ReactiveFlowEngine.Navigation
         }
     }
 
-    public class HistoryStack
+    public class HistoryStack : IHistoryService
     {
         private readonly List<HistoryEntry> _entries = new List<HistoryEntry>();
         private readonly object _lockObject = new object();

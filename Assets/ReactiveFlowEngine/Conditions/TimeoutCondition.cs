@@ -7,7 +7,6 @@ namespace ReactiveFlowEngine.Conditions
     public class TimeoutCondition : ICondition
     {
         private readonly float _timeout;
-        private IDisposable _subscription;
 
         public TimeoutCondition(float timeout)
         {
@@ -26,10 +25,6 @@ namespace ReactiveFlowEngine.Conditions
             // Stateless - timer restarts on new subscription
         }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
     }
 }

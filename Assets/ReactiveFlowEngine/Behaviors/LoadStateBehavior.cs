@@ -32,7 +32,7 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
             _preLoadState = _stateStore.GetAllGlobalState();
             var snapshot = _stateStore.GetGlobalState(_snapshotKey) as Dictionary<string, object>;
@@ -44,16 +44,16 @@ namespace ReactiveFlowEngine.Behaviors
             {
                 Debug.LogWarning($"[RFE] LoadState: Snapshot '{_snapshotKey}' not found.");
             }
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
             if (_preLoadState != null)
             {
                 _stateStore.SetAllGlobalState(_preLoadState);
             }
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

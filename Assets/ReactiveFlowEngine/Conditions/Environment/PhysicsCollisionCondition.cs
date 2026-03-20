@@ -4,12 +4,11 @@ using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.Environment
 {
-    public sealed class PhysicsCollisionCondition : IEnvironmentCondition
+    public sealed class PhysicsCollisionCondition : ICondition
     {
         private readonly IEventBus _eventBus;
         private readonly string _objectAId;
         private readonly string _objectBId;
-        private IDisposable _subscription;
 
         public PhysicsCollisionCondition(IEventBus eventBus, string objectAId, string objectBId)
         {
@@ -36,11 +35,7 @@ namespace ReactiveFlowEngine.Conditions.Environment
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool IsMatchingCollision(object payload)
         {

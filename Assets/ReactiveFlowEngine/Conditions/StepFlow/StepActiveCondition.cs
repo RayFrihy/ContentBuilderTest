@@ -4,11 +4,10 @@ using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.StepFlow
 {
-    public sealed class StepActiveCondition : IStepFlowCondition
+    public sealed class StepActiveCondition : ICondition
     {
         private readonly IFlowEngine _flowEngine;
         private readonly string _stepId;
-        private IDisposable _subscription;
 
         public StepActiveCondition(IFlowEngine flowEngine, string stepId)
         {
@@ -24,10 +23,6 @@ namespace ReactiveFlowEngine.Conditions.StepFlow
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
     }
 }

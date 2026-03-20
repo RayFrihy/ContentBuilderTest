@@ -38,12 +38,20 @@ namespace ReactiveFlowEngine.Behaviors
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] HighlightObjectBehavior: SceneObjectResolver is null, skipping.");
+                return UniTask.CompletedTask;
+            }
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                UnityEngine.Debug.LogWarning($"[RFE] HighlightObjectBehavior: Target object '{_targetGuid}' not found.");
+                return UniTask.CompletedTask;
+            }
 
             var renderers = target.GetComponentsInChildren<Renderer>();
             _originalStates = new List<(Renderer, MaterialPropertyBlock)>(renderers.Length);
@@ -68,12 +76,12 @@ namespace ReactiveFlowEngine.Behaviors
             }
 
             _hasOriginalState = true;
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (_resolver == null || !_hasOriginalState) return;
+            if (_resolver == null || !_hasOriginalState) return UniTask.CompletedTask;
 
             foreach (var (renderer, originalBlock) in _originalStates)
             {
@@ -83,7 +91,7 @@ namespace ReactiveFlowEngine.Behaviors
                 renderer.SetPropertyBlock(originalBlock);
             }
 
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()

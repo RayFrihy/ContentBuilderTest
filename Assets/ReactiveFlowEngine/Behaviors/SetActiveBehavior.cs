@@ -7,10 +7,11 @@ using UnityEngine;
 
 namespace ReactiveFlowEngine.Behaviors
 {
-    public class EnableObjectBehavior : IReversibleBehavior, IStateCaptureBehavior
+    public class SetActiveBehavior : IReversibleBehavior, IStateCaptureBehavior
     {
         private readonly ISceneObjectResolver _resolver;
         private readonly string _targetGuid;
+        private readonly bool _targetActiveState;
         private readonly bool _isBlocking;
         private readonly ExecutionStages _stages;
 
@@ -20,41 +21,51 @@ namespace ReactiveFlowEngine.Behaviors
         public ExecutionStages Stages => _stages;
         public bool IsBlocking => _isBlocking;
 
-        public EnableObjectBehavior(
+        public SetActiveBehavior(
             ISceneObjectResolver resolver,
             string targetGuid,
+            bool targetActiveState,
             bool isBlocking = true,
             ExecutionStages stages = ExecutionStages.Activation)
         {
             _resolver = resolver;
             _targetGuid = targetGuid;
+            _targetActiveState = targetActiveState;
             _isBlocking = isBlocking;
             _stages = stages;
         }
 
-        public async UniTask ExecuteAsync(CancellationToken ct)
+        public UniTask ExecuteAsync(CancellationToken ct)
         {
-            if (_resolver == null) return;
+            if (_resolver == null)
+            {
+                Debug.LogWarning($"[RFE] SetActiveBehavior: SceneObjectResolver is null, skipping.");
+                return UniTask.CompletedTask;
+            }
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null)
+            {
+                Debug.LogWarning($"[RFE] SetActiveBehavior: Target object '{_targetGuid}' not found.");
+                return UniTask.CompletedTask;
+            }
 
             _wasActive = target.gameObject.activeSelf;
             _hasOriginalState = true;
 
-            target.gameObject.SetActive(true);
-            await UniTask.CompletedTask;
+            target.gameObject.SetActive(_targetActiveState);
+            return UniTask.CompletedTask;
         }
 
-        public async UniTask UndoAsync(CancellationToken ct)
+        public UniTask UndoAsync(CancellationToken ct)
         {
-            if (_resolver == null || !_hasOriginalState) return;
+            if (_resolver == null || !_hasOriginalState) return UniTask.CompletedTask;
 
             var target = _resolver.Resolve(_targetGuid);
-            if (target == null) return;
+            if (target == null) return UniTask.CompletedTask;
 
             target.gameObject.SetActive(_wasActive);
-            await UniTask.CompletedTask;
+            return UniTask.CompletedTask;
         }
 
         public Dictionary<string, object> CaptureState()
@@ -63,7 +74,8 @@ namespace ReactiveFlowEngine.Behaviors
             {
                 ["WasActive"] = _wasActive,
                 ["HasOriginalState"] = _hasOriginalState,
-                ["TargetGuid"] = _targetGuid
+                ["TargetGuid"] = _targetGuid,
+                ["TargetActiveState"] = _targetActiveState
             };
         }
     }

@@ -8,7 +8,6 @@ namespace ReactiveFlowEngine.Conditions.TimeBased
     {
         private readonly float _requiredElapsed;
         private readonly ComparisonOperator _comparisonOperator;
-        private IDisposable _subscription;
 
         public float Duration => _requiredElapsed;
 
@@ -28,11 +27,7 @@ namespace ReactiveFlowEngine.Conditions.TimeBased
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
 
         private bool CompareElapsed(float elapsed)
         {

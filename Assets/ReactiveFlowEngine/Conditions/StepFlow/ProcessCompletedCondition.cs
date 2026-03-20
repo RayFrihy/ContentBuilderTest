@@ -4,10 +4,9 @@ using ReactiveFlowEngine.Abstractions;
 
 namespace ReactiveFlowEngine.Conditions.StepFlow
 {
-    public sealed class ProcessCompletedCondition : IStepFlowCondition
+    public sealed class ProcessCompletedCondition : ICondition
     {
         private readonly IFlowEngine _flowEngine;
-        private IDisposable _subscription;
 
         public ProcessCompletedCondition(IFlowEngine flowEngine)
         {
@@ -22,10 +21,6 @@ namespace ReactiveFlowEngine.Conditions.StepFlow
 
         public void Reset() { }
 
-        public void Dispose()
-        {
-            _subscription?.Dispose();
-            _subscription = null;
-        }
+        public void Dispose() { }
     }
 }
