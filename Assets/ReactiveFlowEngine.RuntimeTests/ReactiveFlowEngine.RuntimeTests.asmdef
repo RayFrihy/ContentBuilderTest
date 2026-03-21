@@ -1,0 +1,27 @@
+{
+    "name": "ReactiveFlowEngine.RuntimeTests",
+    "rootNamespace": "ReactiveFlowEngine.RuntimeTests",
+    "references": [
+        "ReactiveFlowEngine",
+        "ReactiveFlowEngine.Tests",
+        "R3.Unity",
+        "UniTask",
+        "VContainer"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll",
+        "Newtonsoft.Json.dll",
+        "R3.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false,
+    "testAssemblies": true
+}
