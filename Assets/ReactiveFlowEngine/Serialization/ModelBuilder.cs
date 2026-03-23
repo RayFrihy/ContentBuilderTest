@@ -324,10 +324,14 @@ namespace ReactiveFlowEngine.Serialization
             else if (behaviorObj is JsonGenericBehavior generic && generic.Data != null)
             {
                 // Generic fallback for all other behavior types
-                var typeName = generic.TypeDiscriminator;
+                // TypeDiscriminator comes from $type (may be consumed by Newtonsoft),
+                // TypeName comes from __type (VR Builder format)
+                var typeName = !string.IsNullOrEmpty(generic.TypeDiscriminator)
+                    ? generic.TypeDiscriminator
+                    : generic.TypeName;
                 if (string.IsNullOrEmpty(typeName))
                 {
-                    Debug.LogWarning("[RFE] GenericBehavior has no TypeDiscriminator, skipping.");
+                    Debug.LogWarning("[RFE] GenericBehavior has no TypeDiscriminator or __type, skipping.");
                     return null;
                 }
 
@@ -358,10 +362,12 @@ namespace ReactiveFlowEngine.Serialization
             else if (condObj is JsonGenericCondition generic && generic.Data != null)
             {
                 // Generic fallback for all other condition types
-                var typeName = generic.TypeDiscriminator;
+                var typeName = !string.IsNullOrEmpty(generic.TypeDiscriminator)
+                    ? generic.TypeDiscriminator
+                    : generic.TypeName;
                 if (string.IsNullOrEmpty(typeName))
                 {
-                    Debug.LogWarning("[RFE] GenericCondition has no TypeDiscriminator, skipping.");
+                    Debug.LogWarning("[RFE] GenericCondition has no TypeDiscriminator or __type, skipping.");
                     return null;
                 }
 
@@ -411,8 +417,49 @@ namespace ReactiveFlowEngine.Serialization
             {
                 return jVal.Value;
             }
+            // Handle pre-resolved Dictionary<string, object> (from type-binder mapped types)
+            else if (value is IDictionary<string, object> dict2)
+            {
+                return ExtractFirstGuidOrResolve(dict2);
+            }
 
             return value;
+        }
+
+        /// <summary>
+        /// Extracts the first GUID from a VR Builder reference structure
+        /// (e.g., { "guids": [guid] } or { "Targets": [guid] }) or recursively resolves dictionary values.
+        /// </summary>
+        private static object ExtractFirstGuidOrResolve(IDictionary<string, object> dict)
+        {
+            // Check for "guids" key (MultipleSceneObjectReference pattern)
+            if (dict.TryGetValue("guids", out var guidsVal))
+            {
+                var guid = ExtractFirstGuidFromList(guidsVal);
+                if (guid != null) return guid;
+            }
+
+            // Check for "Targets" key containing a list of GUIDs (MultipleGrabbablePropertyReference pattern)
+            if (dict.TryGetValue("Targets", out var targetsVal))
+            {
+                var guid = ExtractFirstGuidFromList(targetsVal);
+                if (guid != null) return guid;
+            }
+
+            // Recursively resolve values
+            var resolved = new Dictionary<string, object>();
+            foreach (var kvp in dict)
+                resolved[kvp.Key] = ResolveJsonValue(kvp.Value);
+            return resolved;
+        }
+
+        private static string ExtractFirstGuidFromList(object listObj)
+        {
+            if (listObj is IList<object> list && list.Count > 0)
+                return list[0]?.ToString();
+            if (listObj is JArray jArr && jArr.Count > 0)
+                return jArr[0]?.ToString();
+            return null;
         }
 
         private StepType ParseStepType(string stepType)

@@ -8,11 +8,17 @@
       "Bash(find /c/Users/IKDru/BuilderTest/Library/PackageCache/com.unity.ai.assistant@df09423d72a0 -name *.json)",
       "Bash(find /c/Users/IKDru/BuilderTest -path */Logs/* -name *.log)",
       "Bash(find /c/Users/IKDru/BuilderTest/Library/PackageCache/com.unity.ai.assistant@df09423d72a0 -name *.cs -o -name *.py -o -name *.sh)",
-      "Bash(find /c/Users/IKDru/BuilderTest/Library/PackageCache/com.unity.ai.assistant@df09423d72a0/Modules/Unity.AI.MCP* -name \"*.cs\")"
+      "Bash(find /c/Users/IKDru/BuilderTest/Library/PackageCache/com.unity.ai.assistant@df09423d72a0/Modules/Unity.AI.MCP* -name \"*.cs\")",
+      "mcp__unity-mcp__Unity_ReadConsole",
+      "mcp__unity-mcp__Unity_GetConsoleLogs",
+      "mcp__unity-mcp__Unity_RunCommand",
+      "Bash(grep \".cs$\")",
+      "mcp__unity-mcp__Unity_CreateScript",
+      "mcp__unity-mcp__Unity_ManageMenuItem"
     ]
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "unity-mcp"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }

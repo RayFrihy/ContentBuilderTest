@@ -65,7 +65,7 @@ namespace ReactiveFlowEngine.Tests
                                 {
                                     Data = new JsonTransitionData
                                     {
-                                        TargetStep = new JsonStep
+                                        TargetStep = new JsonStepRef
                                         {
                                             StepMetadata = new JsonStepMetadata { Guid = step2Guid }
                                         }

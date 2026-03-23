@@ -1,5 +1,6 @@
 using System.Threading;
 using NUnit.Framework;
+using R3;
 using ReactiveFlowEngine.Abstractions;
 using ReactiveFlowEngine.Behaviors;
 using ReactiveFlowEngine.Tests.TestDoubles;

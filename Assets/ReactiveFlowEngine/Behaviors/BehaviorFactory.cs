@@ -51,6 +51,7 @@ namespace ReactiveFlowEngine.Behaviors
                 // === Object Control ===
                 "RotateObjectBehavior" => CreateRotateObject(definition),
                 "ScaleObjectBehavior" => CreateScaleObject(definition),
+                "ScalingBehavior" => CreateScaleObject(definition),
                 "SetTransformBehavior" => CreateSetTransform(definition),
                 "TeleportObjectBehavior" => CreateTeleportObject(definition),
                 "EnableObjectBehavior" => new SetActiveBehavior(
@@ -280,7 +281,7 @@ namespace ReactiveFlowEngine.Behaviors
         private IBehavior CreateScaleObject(BehaviorDefinition def) =>
             new ScaleObjectBehavior(
                 _sceneResolver,
-                def.GetString("TargetObject"),
+                def.GetString("TargetObject") ?? def.GetString("Targets"),
                 def.GetVector3("TargetScale"),
                 def.GetFloat("Duration"),
                 def.GetAnimationCurve("AnimationCurve"),

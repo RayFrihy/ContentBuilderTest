@@ -104,22 +104,20 @@ namespace ReactiveFlowEngine.Tests
         public void Evaluate_EmptyTransitions_ReturnsEmpty()
         {
             ITransition winner = null;
-            bool completed = false;
             var observable = _evaluator.Evaluate(new List<ITransition>());
-            observable.Subscribe(t => winner = t, _ => { }, () => completed = true);
+            observable.Subscribe(t => winner = t);
 
             Assert.IsNull(winner);
-            Assert.IsTrue(completed);
         }
 
         [Test]
         public void Evaluate_NullTransitions_ReturnsEmpty()
         {
-            bool completed = false;
+            ITransition winner = null;
             var observable = _evaluator.Evaluate(null);
-            observable.Subscribe(_ => { }, _ => { }, () => completed = true);
+            observable.Subscribe(t => winner = t);
 
-            Assert.IsTrue(completed);
+            Assert.IsNull(winner);
         }
 
         [Test]

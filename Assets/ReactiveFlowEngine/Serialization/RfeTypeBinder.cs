@@ -47,6 +47,16 @@ namespace ReactiveFlowEngine.Serialization
             ["ExecuteChapterBehavior"] = typeof(JsonExecuteChapterBehavior),
             ["ExecuteChapterBehaviorData"] = typeof(JsonExecuteChapterBehaviorData),
 
+            // === Source-format aliases (VR Builder JSON naming) ===
+            ["ScalingBehavior"] = typeof(JsonGenericBehavior),
+            ["ScalingBehaviorData"] = typeof(Dictionary<string, object>),
+            ["GrabbedCondition"] = typeof(JsonGenericCondition),
+            ["GrabbedConditionData"] = typeof(Dictionary<string, object>),
+            ["MultipleSceneObjectReference"] = typeof(Dictionary<string, object>),
+            ["MultipleGrabbablePropertyReference"] = typeof(Dictionary<string, object>),
+            ["TagList"] = typeof(List<object>),
+            ["Tag"] = typeof(Dictionary<string, object>),
+
             // === Generic behavior types (all map to JsonGenericBehavior) ===
             ["DelayBehavior"] = typeof(JsonGenericBehavior),
             ["RotateObjectBehavior"] = typeof(JsonGenericBehavior),
@@ -190,7 +200,7 @@ namespace ReactiveFlowEngine.Serialization
         // so we can recover the original type name after deserialization
         private static readonly HashSet<string> _behaviorTypeNames = new HashSet<string>
         {
-            "DelayBehavior", "RotateObjectBehavior", "ScaleObjectBehavior", "SetTransformBehavior",
+            "DelayBehavior", "RotateObjectBehavior", "ScaleObjectBehavior", "ScalingBehavior", "SetTransformBehavior",
             "TeleportObjectBehavior", "EnableObjectBehavior", "DisableObjectBehavior", "DestroyObjectBehavior",
             "SpawnObjectBehavior", "AttachObjectBehavior", "DetachObjectBehavior", "SetParentBehavior",
             "HighlightObjectBehavior", "UnhighlightObjectBehavior", "ChangeMaterialBehavior", "FadeObjectBehavior",

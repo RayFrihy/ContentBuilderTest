@@ -1,0 +1,252 @@
+{
+	"$id": "515714a1-89fa-4493-9821-4f735f9b376f",
+	"$type": "Serializer_ProcessWrapper, ",
+	"SubChapters": {
+		"$id": "643bbbff-aa12-4d79-80ff-8e561d30f49d",
+		"$type": "ChapterList, ",
+		"$values": []
+	},
+	"Steps": {
+		"$id": "619bc955-7474-4a46-9992-b3ac5bc541e0",
+		"$type": "StepList, ",
+		"$values": [
+			{
+				"$id": "fe8609da-60e9-48d5-b5af-ff803e2687ca",
+				"$type": "Step, ",
+				"StepMetadata": {
+					"$id": "75513d4b-c6d8-4a36-81b8-857f75913b55",
+					"$type": "StepMetadata, ",
+					"Position": {
+						"x": 43.5,
+						"y": 48
+					},
+					"StepType": "default",
+					"Guid": "fe8609da-60e9-48d5-b5af-ff803e2687ca"
+				},
+				"Data": {
+					"$id": "4d0c0aa3-35bd-4c4b-9fda-47a7e91bcfc9",
+					"$type": "StepData, ",
+					"Name": "Untitled Step",
+					"Description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eu odio mollis, pretium velit et, blandit diam. ",
+					"Behaviors": {
+						"$id": "f74cfca0-b8f8-461c-b2fb-932bb9875f8f",
+						"$type": "BehaviorCollection, ",
+						"Data": {
+							"$id": "5dfa7070-8410-4f6c-a086-faf8236f2f25",
+							"$type": "BehaviorCollectionData, ",
+							"Behaviors": {
+								"$id": "bb6e98f7-18c6-4f69-808c-ce325a9a2bb7",
+								"$type": "BehaviorList, ",
+								"$values": [
+									{
+										"$id": "d709e69c-f1a2-4d65-abd0-c422d3bf214f",
+										"$type": "ScalingBehavior, ",
+										"Data": {
+											"$id": "04a2f5fc-7201-44af-afb7-93dfea28ca09",
+											"$type": "ScalingBehaviorData, ",
+											"ExecutionStages": 0,
+											"Metadata": null,
+											"IsBlocking": false,
+											"Targets": {
+												"$id": "e7fd33c1-e2e7-4908-ac06-d397d6042d0a",
+												"$type": "MultipleSceneObjectReference, ",
+												"guids": {
+													"$id": "b4f5bec8-1af4-428c-852c-ff60c94f8815",
+													"$type": "GuidList, ",
+													"$values": [
+														"876e6af0-7e8b-4d69-8f1a-0960dd6d96f5"
+													]
+												}
+											},
+											"Duration": 1,
+											"AnimationCurve": {
+												"Keys": [
+													{
+														"Time": 0,
+														"Value": 0,
+														"InTangent": 0,
+														"OutTangent": 1,
+														"InWeight": 0,
+														"OutWeight": 0,
+														"WeightedMode": 0
+													},
+													{
+														"Time": 1,
+														"Value": 1,
+														"InTangent": 1,
+														"OutTangent": 0,
+														"InWeight": 0,
+														"OutWeight": 0,
+														"WeightedMode": 0
+													}
+												],
+												"PreWrapMode": 8,
+												"PostWrapMode": 8
+											},
+											"WaitForCompletion": false,
+											"__type": "ScalingBehaviorData"
+										},
+										"__type": "ScalingBehavior"
+									}
+								]
+							}
+						}
+					},
+					"Transitions": {
+						"$id": "ae9789c4-bcce-4b76-bf2e-2ab138fa3014",
+						"$type": "TransitionCollection, ",
+						"Data": {
+							"$id": "bf760699-5d0c-4573-bfec-98f089f2388c",
+							"$type": "TransitionCollectionData, ",
+							"Transitions": {
+								"$id": "83513b7d-cbf2-4d9c-b379-35ef738f0bb7",
+								"$type": "TransitionList, ",
+								"$values": [
+									{
+										"$id": "e6a65d19-22dc-44af-9f88-714eca158871",
+										"$type": "Transition, ",
+										"Data": {
+											"$id": "7b82a21c-f460-455d-9cd6-67a9a9581347",
+											"$type": "TransitionData, ",
+											"Conditions": {
+												"$id": "b736b3d5-bf67-4dca-b732-0346efd75383",
+												"$type": "ConditionList, ",
+												"$values": [
+													{
+														"$id": "a9402c35-eddc-4b6b-a669-cb328c972d63",
+														"$type": "GrabbedCondition, ",
+														"Data": {
+															"$id": "119c8d6c-7910-4ecc-ad06-74797c4ed959",
+															"$type": "GrabbedConditionData, ",
+															"IsCompleted": false,
+															"Metadata": null,
+															"Targets": {
+																"$id": "d16b01e2-073f-4736-967a-ee12594a5338",
+																"$type": "MultipleGrabbablePropertyReference, ",
+																"Targets": {
+																	"$id": "8094af23-e11a-4a00-ab0c-ab1c2a8028d0",
+																	"$type": "GuidList, ",
+																	"$values": [
+																		"876e6af0-7e8b-4d69-8f1a-0960dd6d96f5"
+																	]
+																}
+															},
+															"__type": "GrabbedConditionData"
+														},
+														"__type": "GrabbedCondition"
+													}
+												]
+											},
+											"TargetStep": null,
+											"Mode": null,
+											"IsCompleted": false,
+											"Metadata": null
+										}
+									}
+								]
+							}
+						}
+					},
+					"Mode": null,
+					"ToUnlock": {
+						"$id": "f662830e-4fe4-442e-aee4-e2d24522f8c4",
+						"$type": "LockablePropertyRefList, ",
+						"$values": []
+					},
+					"GroupsToUnlock": {
+						"$id": "02809ec2-beea-43a7-a2d7-7a82b7604ea6",
+						"$type": "GuidDictionary, "
+					},
+					"IsCompleted": false,
+					"Metadata": null
+				}
+			}
+		]
+	},
+	"Process": {
+		"$id": "9f91d0b5-bcd9-4b9d-b823-91f5adce0563",
+		"$type": "Process, ",
+		"ProcessMetadata": {
+			"$id": "14c7e9e8-255c-4cb2-8c2f-e08fff6197f5",
+			"$type": "ProcessMetadata, ",
+			"StringLocalizationTable": null,
+			"Guid": "022593aa-bf37-405a-b15b-a4b707c5ab1d"
+		},
+		"Data": {
+			"$id": "a73316e2-64b7-40de-87a7-6d9f65d1ad24",
+			"$type": "ProcessData, ",
+			"EntityManifest": {
+				"$id": "87592153-0730-4a74-a81c-d3b26a70a0a8",
+				"$type": "TagList, ",
+				"$values": [
+					{
+						"$id": "4fca9b56-962c-4f76-af65-9513b9a7ab7d",
+						"$type": "Tag, ",
+						"Name": "Actor Test Entity",
+						"Guid": "876e6af0-7e8b-4d69-8f1a-0960dd6d96f5",
+						"Type": "ACTOR"
+					},
+					{
+						"$id": "fd7ab639-4fd5-451d-8487-e1e59ebb8d61",
+						"$type": "Tag, ",
+						"Name": "Asset Test Entity",
+						"Guid": "4a508936-09d1-430e-b32f-a47265be2f65",
+						"Type": "ASSET"
+					},
+					{
+						"$id": "c4805b46-bc8a-441c-9041-b7297e67db47",
+						"$type": "Tag, ",
+						"Name": "Scene Test Entity",
+						"Guid": "58fb981a-30a6-4e71-acb3-394bfc172de3",
+						"Type": "SCENE"
+					}
+				]
+			},
+			"Chapters": {
+				"$id": "c75f0cfc-7a6b-493b-b2c0-db5bffa082fd",
+				"$type": "ChapterList, ",
+				"$values": [
+					{
+						"$id": "a368eafa-4fa0-4894-b622-644658ccf315",
+						"$type": "Chapter, ",
+						"ChapterMetadata": {
+							"$id": "983c033b-6aa7-4832-a32d-e6f1ef5640b1",
+							"$type": "ChapterMetadata, ",
+							"LastSelectedStep": null,
+							"EntryNodePosition": {
+								"x": -41.5,
+								"y": -36.5
+							},
+							"Guid": "a368eafa-4fa0-4894-b622-644658ccf315",
+							"ViewTransform": null
+						},
+						"Data": {
+							"$id": "86db282d-c3fc-42bf-8587-b83588ba6048",
+							"$type": "ChapterData, ",
+							"Name": "Untitled Chapter",
+							"FirstStep": {
+								"$ref": "fe8609da-60e9-48d5-b5af-ff803e2687ca"
+							},
+							"Steps": {
+								"$id": "dfbadbe0-cfe2-4209-bd87-3aa047ab4739",
+								"$type": "StepList, ",
+								"$values": [
+									{
+										"$ref": "fe8609da-60e9-48d5-b5af-ff803e2687ca"
+									}
+								]
+							}
+						}
+					}
+				]
+			},
+			"FirstChapter": {
+				"$ref": "a368eafa-4fa0-4894-b622-644658ccf315"
+			},
+			"Name": "NULL",
+			"Mode": null,
+			"Metadata": null
+		}
+	},
+	"SerializerVersion": -1
+}

@@ -51,6 +51,7 @@ namespace ReactiveFlowEngine.Conditions
 
                 // Interaction conditions (consolidated via EventBusCondition)
                 "ObjectGrabbedCondition" => new EventBusCondition(_eventBus, "ObjectGrabbed", definition.GetString("TargetObjectId")),
+                "GrabbedCondition" => new EventBusCondition(_eventBus, "ObjectGrabbed", definition.GetString("TargetObjectId") ?? definition.GetString("Targets")),
                 "ObjectReleasedCondition" => new EventBusCondition(_eventBus, "ObjectReleased", definition.GetString("TargetObjectId")),
                 "ObjectTouchedCondition" => new EventBusCondition(_eventBus, "ObjectTouched", definition.GetString("TargetObjectId")),
                 "ObjectUsedCondition" => new EventBusCondition(_eventBus, "ObjectUsed", definition.GetString("TargetObjectId")),

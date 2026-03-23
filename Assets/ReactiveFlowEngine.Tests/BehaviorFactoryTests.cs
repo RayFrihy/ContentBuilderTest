@@ -4,6 +4,7 @@ using NUnit.Framework;
 using ReactiveFlowEngine.Abstractions;
 using ReactiveFlowEngine.Behaviors;
 using ReactiveFlowEngine.Model;
+using ReactiveFlowEngine.Conditions;
 using ReactiveFlowEngine.Tests.TestDoubles;
 using UnityEngine;
 
@@ -31,7 +32,7 @@ namespace ReactiveFlowEngine.Tests
             _flowEngine = new MockFlowEngine();
 
             // Create a minimal condition factory for behaviors that need it
-            var condFactory = new Conditions.ConditionFactory(_resolver, _eventBus, _stateStore, _flowEngine);
+            var condFactory = new ConditionFactory(_resolver, _eventBus, _stateStore, _flowEngine);
 
             _factory = new BehaviorFactory(
                 _resolver, _stateStore, _navigationService, _flowEngine, _stepRunner, _eventBus, condFactory);
