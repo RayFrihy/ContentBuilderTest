@@ -14,7 +14,14 @@
       "mcp__unity-mcp__Unity_RunCommand",
       "Bash(grep \".cs$\")",
       "mcp__unity-mcp__Unity_CreateScript",
-      "mcp__unity-mcp__Unity_ManageMenuItem"
+      "mcp__unity-mcp__Unity_ManageMenuItem",
+      "Bash(ls -1 \"z:/Repos/ContentBuilderTest/Assets/ReactiveFlowEngine/Behaviors\"/*.cs)",
+      "Bash(grep \"\\\\.cs$\")",
+      "Bash(ls -d z:/Repos/ContentBuilderTest/Assets/ReactiveFlowEngine/*/)",
+      "Bash(find Z:ReposContentBuilderTest -name *.cs -type f -exec grep -l \"RegisterComponent\\\\|IContainerBuilder\" {})",
+      "Bash(2)",
+      "WebSearch",
+      "WebFetch(domain:vcontainer.hadashikick.jp)"
     ]
   },
   "enableAllProjectMcpServers": true,

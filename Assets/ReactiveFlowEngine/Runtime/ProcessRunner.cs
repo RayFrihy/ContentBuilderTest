@@ -14,6 +14,7 @@ namespace ReactiveFlowEngine.Runtime
         private readonly IProcessLoader _loader;
         private readonly IFlowEngine _engine;
         private readonly NavigationService _navigationService;
+        private readonly IStepGuidanceService _guidanceService;
         private readonly TextAsset _processJson;
         private CancellationTokenSource _cts;
 
@@ -22,11 +23,13 @@ namespace ReactiveFlowEngine.Runtime
             IProcessLoader loader,
             IFlowEngine engine,
             NavigationService navigationService,
+            IStepGuidanceService guidanceService,
             TextAsset processJson = null)
         {
             _loader = loader;
             _engine = engine;
             _navigationService = navigationService;
+            _guidanceService = guidanceService;
             _processJson = processJson;
         }
 
@@ -50,6 +53,7 @@ namespace ReactiveFlowEngine.Runtime
                 }
 
                 _navigationService.SetCurrentProcess(process);
+                _guidanceService.Enable();
                 await _engine.StartProcessAsync(process, _cts.Token);
             }
             catch (OperationCanceledException)

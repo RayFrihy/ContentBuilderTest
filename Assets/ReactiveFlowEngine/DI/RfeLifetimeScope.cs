@@ -4,6 +4,7 @@ using VContainer.Unity;
 using ReactiveFlowEngine.Abstractions;
 using ReactiveFlowEngine.Engine;
 using ReactiveFlowEngine.Navigation;
+using ReactiveFlowEngine.Runtime.Input;
 using ReactiveFlowEngine.Serialization;
 using ReactiveFlowEngine.State;
 
@@ -45,6 +46,12 @@ namespace ReactiveFlowEngine.DI
 
             // Scene integration
             builder.Register<Runtime.SceneObjectResolver>(Lifetime.Singleton).As<ISceneObjectResolver>();
+
+            // Interaction framework
+            builder.Register<Runtime.StepGuidanceService>(Lifetime.Singleton)
+                .As<IStepGuidanceService>();
+            builder.RegisterComponentInHierarchy<MouseInputProvider>()
+                .As<IInputProvider>();
 
             // Configuration
             if (_processJson != null)

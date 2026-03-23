@@ -1,0 +1,63 @@
+JSON loaded, length=7480
+Process: NULL (ID=022593aa-bf37-405a-b15b-a4b707c5ab1d)
+Chapters: 1
+  Chapter: 'Untitled Chapter' ID=a368eafa-4fa0-4894-b622-644658ccf315
+  Steps: 1
+  FirstStep: Untitled Step
+    Step: 'Untitled Step' ID=fe8609da-60e9-48d5-b5af-ff803e2687ca
+      Behaviors: 0
+      Transitions: 1
+        -> null (end)
+        Conditions: 0
+
+=== Raw Deserialization Check ===
+Step: Untitled Step
+  Raw behaviors: 1
+    Type: ReactiveFlowEngine.Serialization.JsonModels.JsonGenericBehavior
+    TypeDiscriminator: ''
+    TypeName (__type): 'ScalingBehavior'
+    Data null? False
+    Data entries: 8
+      [ExecutionStages] = 0 (Int64)
+      [Metadata] =  (null)
+      [IsBlocking] = False (Boolean)
+      [Targets] = System.Collections.Generic.Dictionary`2[System.String,System.Object] (Dictionary`2)
+        [guids] = System.Collections.Generic.List`1[System.Object] (List`1)
+      [Duration] = 1 (Int64)
+      [AnimationCurve] = {
+  "Keys": [
+    {
+      "Time": 0,
+      "Value": 0,
+      "InTangent": 0,
+      "OutTangent": 1,
+      "InWeight": 0,
+      "OutWeight": 0,
+      "WeightedMode": 0
+    },
+    {
+      "Time": 1,
+      "Value": 1,
+      "InTangent": 1,
+      "OutTangent": 0,
+      "InWeight": 0,
+      "OutWeight": 0,
+      "WeightedMode": 0
+    }
+  ],
+  "PreWrapMode": 8,
+  "PostWrapMode": 8
+} (JObject)
+      [WaitForCompletion] = False (Boolean)
+      [__type] = ScalingBehaviorData (String)
+  Raw conditions: 1
+    Type: ReactiveFlowEngine.Serialization.JsonModels.JsonGenericCondition
+    TypeDiscriminator: ''
+    TypeName (__type): 'GrabbedCondition'
+    Data null? False
+    Data entries: 4
+      [IsCompleted] = False (Boolean)
+      [Metadata] =  (null)
+      [Targets] = System.Collections.Generic.Dictionary`2[System.String,System.Object] (Dictionary`2)
+      [__type] = GrabbedConditionData (String)
+=== PASS ===
